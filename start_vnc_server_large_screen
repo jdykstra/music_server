@@ -1,0 +1,1 @@
+tigervncserver :2 -rfbauth ~/.vnc/passwd -geometry 1780x1110 -localhost no

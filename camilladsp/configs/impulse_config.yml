@@ -1,0 +1,46 @@
+title: "FIR"
+description: "FIR filter from #2800 only"
+
+devices:
+  samplerate: 44100
+  chunksize: 2048
+  capture_samplerate: 44100
+  enable_rate_adjust: true
+  capture:
+    # Read from the default subdevice of the ALSA loopback device.
+    type: Alsa
+    channels: 2
+    device: "hw:Loopback,1"
+    format: S16LE
+  playback:
+    # Write to the default subdevice of the Benchmark DAC
+    type: Alsa
+    channels: 2
+    device: "hw:B20,0"
+    format: S32LE
+
+filters:
+  infrasonic:
+    parameters:
+      freq:  20
+      type:  HighpassFO
+    type: Biquad
+
+  fir_a:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/2800_impulse.wav
+
+pipeline:
+  - type: Filter
+    channel: 0
+    names:
+    - infrasonic
+    - fir_a
+
+  - type: Filter
+    channel: 1
+    names:
+    - infrasonic
+    - fir_a

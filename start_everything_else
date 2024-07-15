@@ -1,0 +1,27 @@
+#! /bin/bash
+
+# This script is executed by the VNC server when its session is created.
+# ~/.vnc/xstartup points to it.
+
+# Directory locations
+QUODLIBET=$MUSIC_ROOT/quodlibet
+CAMILLADSP=$MUSIC_ROOT/camilladsp
+LOGS=$MUSIC_ROOT/logs
+
+source env.sh
+
+irexec &
+
+$MUSIC_ROOT/$QUODLIBET_ENVIRONMENT/bin/python $QUODLIBET/quodlibet.py > $LOGS/quodlibet.log   &
+
+# Start camilladsp.  It will error out if there is nothing connected to the input side
+# of the ALSA loopback device, so delay a while to give quod libet time to finish
+# starting up. 
+sleep 10
+$CAMILLADSP/bin/camilladsp -w -p1234 -s $CAMILLADSP/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP/configs/default_config.yaml &
+
+# Start the backend for the camiliadsp GUI.
+$CAMILLADSP/camillagui_venv/bin/python $CAMILLADSP/gui/main.py > $LOGS/gui_backend.log  &
+
+xterm
+

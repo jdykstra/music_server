@@ -1,0 +1,39 @@
+#! /bin/bash
+set -e
+set -x
+
+# Populate the music_server directory with applications etc. from third-party sources.
+
+# Versions to be downloaded and installed.
+QUODLIBET_BRANCH=jwd-customizations
+CAMILLADSP_RELEASE=v2.0.3
+CAMILLAGUI_BACKEND_RELEASE=v2.1.1
+
+# Pick up global environment definitions.
+source env.sh
+
+# Create a Python virtual environment based on the current default Python, 
+# and install Quod Libet into it from my private fork.
+python -m venv "$QUODLIBET_ENVIRONMENT"
+git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
+
+# install Quod Libet dependencies.
+pushd quodlibet
+poetry export -f - > /tmp/requirements.txt && "$QUODLIBET_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txt
+popd 
+
+# Install Camilladsp from the official release.
+mkdir -p "$CAMILLADSP_DIR"/bin 
+wget -O /tmp/tarball.tgz https://github.com/HEnquist/camilladsp/releases/download/"$CAMILLADSP_RELEASE"/camilladsp-linux-amd64.tar.gz
+tar -xzf /tmp/tarball.tgz -C "$CAMILLADSP_DIR/bin/"
+
+# Install Camilladsp's GUI backend from the official release.
+mkdir -p "$CAMILLADSP_DIR"/camillagui-backend 
+wget -O /tmp/tarball.zip https://github.com/HEnquist/camillagui-backend/releases/download/"$CAMILLAGUI_BACKEND_RELEASE"/camillagui.zip
+unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
+
+# Install camilladsp-backend's dependencies.
+# ??  Right now, we're installing dependencies and running the backend using the platform's default Python.
+python -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
+
+echo "**********  Setup Completed  **********"

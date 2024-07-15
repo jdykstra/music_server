@@ -1,0 +1,70 @@
+title: "Default Configuration"
+description: "Filters from 7-2-24, except first 2 omitted from pipeline."
+
+devices:
+  samplerate: 44100
+  chunksize: 1024
+  capture_samplerate: 44100 
+  capture:
+    # Read from the default channel of the ALSA loopback device.
+    type: Alsa 
+    channels: 2
+    device: "hw:Loopback,1"
+    format: S16LE
+  playback:
+    # Write to the default channel of the Benchmark DAC
+    type: Alsa
+    channels: 2
+    device: "hw:B20,0"
+    format: S32LE
+
+filters:
+  Left-7-2-24_1:
+    parameters:
+      freq: 209.0
+      gain: -1.2
+      q: 4.939
+      type: Peaking
+    type: Biquad
+  Left-7-2-24_2:
+    parameters:
+      freq: 286.0
+      gain: 3.5
+      q: 1.0
+      type: Peaking
+    type: Biquad
+  Left-7-2-24_3:
+    parameters:
+      freq: 699.0
+      gain: -3.4
+      q: 3.109
+      type: Peaking
+    type: Biquad
+  Left-7-2-24_4:
+    parameters:
+      freq: 1111.0
+      gain: -4.9
+      q: 3.287
+      type: Peaking
+    type: Biquad
+  Left-7-2-24_5:
+    parameters:
+      freq: 1411.0
+      gain: -2.6
+      q: 4.845
+      type: Peaking
+    type: Biquad
+
+pipeline:
+  - type: Filter
+    channel: 0
+    names:
+    - Left-7-2-24_3
+    - Left-7-2-24_4
+    - Left-7-2-24_5
+  - type: Filter
+    channel: 1
+    names:
+    - Left-7-2-24_3
+    - Left-7-2-24_4
+    - Left-7-2-24_5
