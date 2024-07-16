@@ -3,12 +3,12 @@
 # This script is executed by the VNC server when its session is created.
 # ~/.vnc/xstartup points to it.
 
+source env.sh
+
 # Directory locations
 QUODLIBET=$MUSIC_ROOT/quodlibet
 CAMILLADSP=$MUSIC_ROOT/camilladsp
 LOGS=$MUSIC_ROOT/logs
-
-source env.sh
 
 irexec &
 

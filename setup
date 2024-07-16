@@ -12,6 +12,9 @@ CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 # Pick up global environment definitions.
 source env.sh
 
+# Clean up any previous installations.
+rm -rf "$QUODLIBET_ENVIRONMENT" quodlibet "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
+
 # Create a Python virtual environment based on the current default Python, 
 # and install Quod Libet into it from my private fork.
 python -m venv "$QUODLIBET_ENVIRONMENT"
