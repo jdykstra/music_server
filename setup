@@ -18,10 +18,11 @@ rm -rf "$QUODLIBET_ENVIRONMENT" quodlibet "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR
 
 # Create a Python virtual environment based on the current default Python, 
 # and install Quod Libet into it from my private fork.
-python -m venv "$QUODLIBET_ENVIRONMENT"
+python3 -m venv "$QUODLIBET_ENVIRONMENT"
 git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
 
 # install Quod Libet dependencies.
+# ??  Jammy, Poetry version 1.1.12
 pushd quodlibet
 poetry export > /tmp/requirements.txt && "$QUODLIBET_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txtpopd 
 
