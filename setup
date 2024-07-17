@@ -39,6 +39,6 @@ unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 
 # Install camilladsp-backend's dependencies.
 # ??  Right now, we're installing dependencies and running the backend using the platform's default Python.
-python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
+python3 -m pip install   -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
 
 echo "**********  Setup Completed  **********"
