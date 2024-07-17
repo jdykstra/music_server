@@ -12,7 +12,7 @@ LOGS=$MUSIC_ROOT/logs
 
 irexec &
 
-$MUSIC_ROOT/$QUODLIBET_ENVIRONMENT/bin/python $QUODLIBET/quodlibet.py > $LOGS/quodlibet.log   &
+$MUSIC_ROOT/$PYTHON_ENVIRONMENT/bin/python $QUODLIBET/quodlibet.py > $LOGS/quodlibet.log   &
 
 # Start camilladsp.  It will error out if there is nothing connected to the input side
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
