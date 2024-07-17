@@ -4,6 +4,7 @@ set -x
 
 # Populate the music_server directory with applications etc. from third-party sources.
 # python3-poetry must be installed.
+# Some Ubuntu Jammy packages needed:  python3 python3.11-venv
 
 # Versions to be downloaded and installed.
 QUODLIBET_BRANCH=set_volume_from_peak
@@ -38,6 +39,6 @@ unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 
 # Install camilladsp-backend's dependencies.
 # ??  Right now, we're installing dependencies and running the backend using the platform's default Python.
-python -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
+python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
 
 echo "**********  Setup Completed  **********"
