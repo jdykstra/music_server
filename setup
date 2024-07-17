@@ -23,8 +23,7 @@ git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
 
 # install Quod Libet dependencies.
 pushd quodlibet
-poetry export -f - > /tmp/requirements.txt && "$QUODLIBET_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txt
-popd 
+poetry export > /tmp/requirements.txt && "$QUODLIBET_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txtpopd 
 
 # Install Camilladsp from the official release.
 mkdir -p "$CAMILLADSP_DIR"/bin 
