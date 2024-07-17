@@ -3,9 +3,10 @@ set -e
 set -x
 
 # Populate the music_server directory with applications etc. from third-party sources.
+# python3-poetry must be installed.
 
 # Versions to be downloaded and installed.
-QUODLIBET_BRANCH=jwd-customizations
+QUODLIBET_BRANCH=set_volume_from_peak
 CAMILLADSP_RELEASE=v2.0.3
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 
