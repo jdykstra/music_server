@@ -15,7 +15,7 @@ CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 source env.sh
 
 # Clean up any previous installations.
-rm -rf "$PYTHON_ENVIRONMENT" quodlibet "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
+rm -rf "$PYTHON_ENVIRONMENT" "$QUOD_LIBET_DIR" "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
 
 # Create a Python virtual environment based on the current default Python. 
 python3 -m venv "$PYTHON_ENVIRONMENT"
@@ -24,10 +24,11 @@ python3 -m venv "$PYTHON_ENVIRONMENT"
 git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
 
 # install Quod Libet dependencies.
-# ??  Jammy, Poetry version 1.1.12
+# Poetry-plugin-export is needed for at least Jammy and later.
 pushd quodlibet
-poetry env use ../"$PYTHON_ENVIRONMENT"/bin/python3
-poetry export > /tmp/requirements.txt && "$PYTHON_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txt
+"$PYTHON" -m poetry env use ../"$PYTHON_ENVIRONMENT"/bin/python3
+"$PYTHON" -m pip install poetry-plugin-export
+"$PYTHON" -m poetry export > /tmp/requirements.txt && "$PYTHON" -m pip install -r /tmp/requirements.txt
 popd 
 
 # Install Camilladsp from the official release.
@@ -41,6 +42,6 @@ wget -O /tmp/tarball.zip https://github.com/HEnquist/camillagui-backend/releases
 unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 
 # Install camilladsp-backend's dependencies.
-"$PYTHON_ENVIRONEMENT"/bin/python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
+"$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
 
 echo "**********  Setup Completed  **********"

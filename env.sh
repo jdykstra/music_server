@@ -4,7 +4,11 @@
 MUSIC_ROOT=`pwd`
 
 # Python virtual environment for Quod Libet.
-PYTHON_ENVIRONMENT=python_venv
+PYTHON_ENVIRONMENT="$MUSIC_ROOT"/python_venv
+PYTHON="$PYTHON_ENVIRONMENT"/bin/python
+
+# Quod Libet directory.
+QUOD_LIBET_DIR="$MUSIC_ROOT"/quodlibet
 
 # Where everything associated with CamillaDSP lives.
-CAMILLADSP_DIR=camilladsp
+CAMILLADSP_DIR="$MUSIC_ROOT"/camilladsp
