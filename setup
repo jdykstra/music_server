@@ -3,7 +3,7 @@ set -e
 set -x
 
 # Populate the music_server directory with applications etc. from third-party sources.
-# python3-poetry must be installed.
+# Some Ubuntu Jammy packages needed:  python3 python3.11-venv libgirepository1.0-dev.
 
 # Versions to be downloaded and installed.
 QUODLIBET_BRANCH=set_volume_from_peak
@@ -14,16 +14,24 @@ CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 source env.sh
 
 # Clean up any previous installations.
-rm -rf "$QUODLIBET_ENVIRONMENT" quodlibet "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
+rm -rf "$PYTHON_ENVIRONMENT" "$QUOD_LIBET_DIR" "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
 
-# Create a Python virtual environment based on the current default Python, 
-# and install Quod Libet into it from my private fork.
-python -m venv "$QUODLIBET_ENVIRONMENT"
+# Place for log files.
+mkdir -p $LOGS
+
+# Create a Python virtual environment based on the current default Python. 
+python3 -m venv "$PYTHON_ENVIRONMENT"
+
+# Install Quod Libet from my private fork.
 git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
 
 # install Quod Libet dependencies.
+# Poetry-plugin-export is needed for at least Jammy and later.
 pushd quodlibet
-poetry export -f - > /tmp/requirements.txt && "$QUODLIBET_ENVIRONMENT"/bin/python -m pip install -r /tmp/requirements.txt
+"$PYTHON" -m pip install poetry poetry-plugin-export
+"$PYTHON" -m poetry env use "$PYTHON_ENVIRONMENT"/bin/python3
+"$PYTHON" -m poetry export > /tmp/requirements.txt
+"$PYTHON" -m pip install -r /tmp/requirements.txt
 popd 
 
 # Install Camilladsp from the official release.
@@ -37,7 +45,6 @@ wget -O /tmp/tarball.zip https://github.com/HEnquist/camillagui-backend/releases
 unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 
 # Install camilladsp-backend's dependencies.
-# ??  Right now, we're installing dependencies and running the backend using the platform's default Python.
-python -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
+"$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
 
 echo "**********  Setup Completed  **********"
