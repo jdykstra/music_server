@@ -17,6 +17,9 @@ source env.sh
 # Clean up any previous installations.
 rm -rf "$PYTHON_ENVIRONMENT" "$QUOD_LIBET_DIR" "$CAMILLADSP_DIR"/bin "$CAMILLADSP_DIR"/camillagui-backend
 
+# Place for log files.
+mkdir -p $LOGS
+
 # Create a Python virtual environment based on the current default Python. 
 python3 -m venv "$PYTHON_ENVIRONMENT"
 
