@@ -1,4 +1,4 @@
-title: "Experimental subwoofer crossover"
+title: "Subwoofer crossover WIP"
 description: "Based on stepbystep.md in the camilladsp repo."
 
 devices:
@@ -22,6 +22,34 @@ devices:
     channels: 2
     device: "hw:B20,0"
     format: S32LE
+    
+mixers:
+  to4chan:
+    description: "Expand 2 channels to 4.  Channel 0 duplicated to channel 2, 1 duplicated to channel 3."
+    channels:
+      in: 2
+      out: 4
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+            inverted: false
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+            inverted: false
+      - dest: 2      <---- new!
+        sources:
+          - channel: 0
+            gain: 0
+            inverted: false
+      - dest: 3      <---- new!
+        sources:
+          - channel: 1
+            gain: 0
+            inverted: false
 
 filters:
   infrasonic:
@@ -45,16 +73,30 @@ filters:
       freq: 100
       q: 1.0
 
-
+# ?? The infrasonic filter probably affects phase.  It should either be on
+# ?? the highpass channels or upstream of the mixer. 
 pipeline:
   - type: Filter
     channel: 0
     names:
     - infrasonic
-
+    - Lowpass
 
   - type: Filter
     channel: 1
     names:
     - infrasonic
+    - Lowpass
+
+  - type: Filter
+    channel: 2
+    names:
+    - infrasonic
+    - Highpass
+
+  - type: Filter
+    channel: 3
+    names:
+    - infrasonic
+    - Highpass
 
