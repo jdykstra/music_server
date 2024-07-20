@@ -1,5 +1,5 @@
-title: "Working Configuration"
-description: "Filters from 6-12-24 measurements with sub. Sample rate mismatch.  Infrasonic filter at 20 Hz."
+title: "Full Range Biquad Configuration"
+description: "Biquad filters from 6-12-24 measurements with sub. Sample rate mismatch.  Infrasonic filter at 20 Hz."
 
 devices:
   samplerate: 44100

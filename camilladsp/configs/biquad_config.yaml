@@ -1,5 +1,5 @@
-title: "Default Configuration"
-description: "Filters from 6-12-24 measurements without sub. Sample rate mismatch.  Individual left and right, no manual tweaking"
+title: "Biquad Filters from 6-12-24 Measurements Without Sub."
+description: "Biquad filters from 6-12-24 measurements without sub. Sample rate mismatch.  Individual left and right, no manual tweaking"
 
 devices:
   samplerate: 44100

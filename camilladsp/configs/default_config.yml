@@ -1,5 +1,5 @@
-title: "FIR"
-description: "FIR filter from both."
+title: "Default Configuration - FIR filter from #2800 only"
+description: "FIR filter from #2800 only"
 
 devices:
   samplerate: 44100
@@ -26,26 +26,21 @@ filters:
       type:  HighpassFO
     type: Biquad
 
-  fir_left:
+  fir_a:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/2800_impulse_7-15.wav
-  fir_right:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/2801_impulse_7-15.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/2800_impulse.wav
 
 pipeline:
   - type: Filter
     channel: 0
     names:
     - infrasonic
-    - fir_left
+    - fir_a
 
   - type: Filter
     channel: 1
     names:
     - infrasonic
-    - fir_right
+    - fir_a
