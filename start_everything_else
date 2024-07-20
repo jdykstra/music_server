@@ -4,6 +4,9 @@ set -x
 
 # This script is executed by the VNC server when its session is created.
 # ~/.vnc/xstartup points to it.
+# We first need to move into the music_server directory (i.e. where this
+# script is locatedecx).
+cd "$( dirname "$0" )"
 
 source env.sh
 
@@ -20,7 +23,7 @@ sleep 10
 $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yaml &
 
 # Start the backend for the camiliadsp GUI.
-$PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &
+$PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
 
 # Start a terminal window.  The VNC server will exit when this process does.
 xterm
