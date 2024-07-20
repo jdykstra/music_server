@@ -1,5 +1,6 @@
 #! /bin/bash
-set -e
+#####  set -e
+set -x
 
 # This script is executed by the VNC server when its session is created.
 # ~/.vnc/xstartup points to it.
@@ -16,10 +17,10 @@ $PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
 # starting up. 
 sleep 10
-$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP/configs/default_config.yaml &
+$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yaml &
 
 # Start the backend for the camiliadsp GUI.
-$CAMILLADSP_DIR/camillagui_venv/bin/python $CAMILLADSP_DIR/gui/main.py > $LOGS/gui_backend.log  &
+$PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &
 
 # Start a terminal window.  The VNC server will exit when this process does.
 xterm
