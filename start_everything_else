@@ -28,9 +28,6 @@ $PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &
 # Start Firefox, showing the camilladsp GUI.
 firefox http://localhost:5005/gui/index.html &
 
-# Start Firefox, showing the camilladsp GUI.
-firefox http://localhost:5005/gui/index.html &
-
 # Start a terminal window.  The VNC server will exit when this process does.
 xterm
 
