@@ -1,6 +1,6 @@
-title: "Minimum Phase 2800 - 8/1/2024"
+title: "Minimum Phase - 7/26/2024"
 description: >
-  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
+  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2801 only.
   Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
 
@@ -33,7 +33,7 @@ filters:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/7-26_minimum_phase.wav
 
 pipeline:
   - type: Filter
