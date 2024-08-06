@@ -12,7 +12,7 @@ vncconfig -iconic &
 x-window-manager 
 
 # We need to move into the music_server directory (i.e. where this
-# script is locatedecx).
+# script is located).
 cd "$( dirname "$0" )"
 
 source env.sh
