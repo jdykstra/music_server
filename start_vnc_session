@@ -2,8 +2,8 @@
 #####  set -e
 set -x
 
-# This script is executed by the VNC server when its session is created.
-# It starts the processes that constitute the music server.
+# This script is executed by the VNC server when it creates a new session.
+# The script starts the processes that constitute the music server.
 # First set up the display environment, as usually done by an xstartup script.
 [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
