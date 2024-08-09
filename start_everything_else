@@ -20,7 +20,7 @@ $PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
 # starting up. 
 sleep 10
-$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yaml &
+$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yml &
 
 # Start the backend for the camiliadsp GUI.
 $PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
