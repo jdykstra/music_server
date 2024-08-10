@@ -2,10 +2,20 @@
 #####  set -e
 set -x
 
-# This script is executed by the VNC server when its session is created.
-# ~/.vnc/xstartup points to it.
-# We first need to move into the music_server directory (i.e. where this
-# script is locatedecx).
+# This script is executed by the VNC server when it creates a new session.
+# The script starts the processes that constitute the music server.
+# First set up the display environment, as usually done by an xstartup script.
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+
+# ??  I think this is aborting, but that doesn't impact the session because
+# ??  it's an asynchronous process.
+x-window-manager &
+
+# We need to move into the music_server directory (i.e. where this
+# script is located).
 cd "$( dirname "$0" )"
 
 source env.sh
