@@ -1,0 +1,43 @@
+#! /bin/bash
+#####  set -e
+set -x
+
+# This script is executed by the VNC server when it creates a new session.
+# The script starts the processes that constitute the music server.
+# First set up the display environment, as usually done by an xstartup script.
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+
+# ??  I think this is aborting, but that doesn't impact the session because
+# ??  it's an asynchronous process.
+x-window-manager &
+
+# We need to move into the music_server directory (i.e. where this
+# script is located).
+cd "$( dirname "$0" )"
+
+source env.sh
+
+# Start infrared remote control daemon.
+irexec &
+
+# Start Quod Libet music player.
+$PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
+
+# Start camilladsp.  It will error out if there is nothing connected to the input side
+# of the ALSA loopback device, so delay a while to give quod libet time to finish
+# starting up. 
+sleep 10
+$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -l debug -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yml &
+
+# Start the backend for the camiliadsp GUI.
+$PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
+
+# Start Firefox, showing the camilladsp GUI.
+firefox http://localhost:5005/gui/index.html &
+
+# Start a terminal window.  The VNC server will exit when this process does.
+xterm
+
