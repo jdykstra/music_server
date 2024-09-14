@@ -42,7 +42,7 @@ mixers:
       - dest: 3                 # Output to channel 3
         sources:
           - channel: 2          # Input from channel 2
-            invert: true               
+            inverted: true               
     channels:
       in: 1
       out: 1
