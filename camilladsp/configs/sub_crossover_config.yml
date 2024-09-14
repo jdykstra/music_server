@@ -47,33 +47,6 @@ mixers:
       in: 1
       out: 1
 
-  to4chan:
-    description: "NOT USED:  Expand 2 channels to 4.  Channel 0 duplicated to channel 2, 1 duplicated to channel 3."
-    channels:
-      in: 2
-      out: 4
-    mapping:
-      - dest: 0
-        sources:
-          - channel: 0
-            gain: 0
-            inverted: false
-      - dest: 1
-        sources:
-          - channel: 1
-            gain: 0
-            inverted: false
-      - dest: 2      
-        sources:
-          - channel: 0
-            gain: 0
-            inverted: false
-      - dest: 3      s
-        sources:
-          - channel: 1
-            gain: 0
-            inverted: false
-
 filters:
   infrasonic:
     parameters:
