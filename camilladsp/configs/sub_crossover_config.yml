@@ -33,11 +33,11 @@ mixers:
       - dest: 0
         sources:
           - channel: 0
-          - gain: 0
+            gain: 0
       - dest: 1
         sources:
           - channel: 1
-          - gain: 0
+            gain: 0
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
@@ -53,19 +53,19 @@ mixers:
       - dest: 0
         sources:
           - channel: 0
-          - gain: 0
+            gain: 0
       - dest: 1
         sources:
           - channel: 1
-          - gain: 0
+            gain: 0
       - dest: 2
         sources:
           - channel: 2
-          - gain: 0
+            gain: 0
       - dest: 3                 # Output to channel 3
         sources:
           - channel: 2          # Input from channel 2
-          - gain: 0
+            gain: 0
             inverted: true               
 
 filters:
