@@ -31,8 +31,8 @@ mixers:
         sources:
           - channel: 0          # Input from channels 0 and 1
             gain: -6
-            channel: 1       
-          - gain: -6               
+          - channel: 1       
+            gain: -6               
     channels:
       in: 2
       out: 1
