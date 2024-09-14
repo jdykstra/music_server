@@ -27,9 +27,9 @@ devices:
 mixers:
   mono:
     mapping:
-      - dest: 2                 <---- Output to channel 2
+      - dest: 2                 # Output to channel 2
         sources:
-          - channel: 0          <---- Input from channels 0 and 1
+          - channel: 0          # Input from channels 0 and 1
             gain: -6
             channel: 1       
           - gain: -6               
@@ -39,9 +39,9 @@ mixers:
   
   invert:
     mapping:
-      - dest: 3                 <---- Output to channel 3
+      - dest: 3                 # Output to channel 3
         sources:
-          - channel: 2          <---- Input from channel 2
+          - channel: 2          # Input from channel 2
             invert: true               
     channels:
       in: 1
@@ -63,12 +63,12 @@ mixers:
           - channel: 1
             gain: 0
             inverted: false
-      - dest: 2      <---- new!
+      - dest: 2      
         sources:
           - channel: 0
             gain: 0
             inverted: false
-      - dest: 3      <---- new!
+      - dest: 3      s
         sources:
           - channel: 1
             gain: 0
