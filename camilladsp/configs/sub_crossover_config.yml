@@ -37,7 +37,7 @@ mixers:
       in: 2
       out: 1
   
-  invert  :
+  invert:
     mapping:
       - dest: 3                 <---- Output to channel 3
         sources:
