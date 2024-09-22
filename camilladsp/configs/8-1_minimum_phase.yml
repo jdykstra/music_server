@@ -1,8 +1,7 @@
-title: "Minimum Phase 9-11 Two Channel"
+title: "Minimum Phase 2800 - 8/1/2024"
 description: >
-  Measurements 9-10, from listening position without sub.
-  Filters generated per cannonical process, modified to delete crossover filters
-  when nulling out phase shifts.
+  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
+  Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
 
 devices:
@@ -30,27 +29,21 @@ filters:
       type:  HighpassFO
     type: Biquad
 
-  fir_l:
+  fir_a:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/9-11_L_minimum_phase.wav
-
-  fir_r:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/9-11_R_minimum_phase.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
 
 pipeline:
   - type: Filter
     channel: 0
     names:
     - infrasonic
-    - fir_l
+    - fir_a
 
   - type: Filter
     channel: 1
     names:
     - infrasonic
-    - fir_r
+    - fir_a
