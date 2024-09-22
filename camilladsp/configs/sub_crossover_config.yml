@@ -13,11 +13,11 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # ALSA device constructed by merging Benchmark DAC - Channels 0 and 1
+    # ALSA device constructed by compositing Benchmark DAC - Channels 0 and 1
     # and Dell Latitude integrated audio - Channels 2 and 3
     type: Alsa
     channels: 4
-    device: "hw:merged"
+    device: "composite_dac"
     format: S32LE
     
 mixers:
