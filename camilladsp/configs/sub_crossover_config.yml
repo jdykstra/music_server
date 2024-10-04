@@ -1,4 +1,4 @@
-title: "Subwoofer crossover WIP"
+title: "Subwoofer crossover"
 description: "Initially based on stepbystep.md in the camilladsp repo."
 
 devices:
@@ -92,19 +92,26 @@ filters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
 
+# Delay the sub signal to compensate for the FIR filter on the mains.
+  sub_delay:
+    type: Delay
+    parameters:
+      delay: 818       # for a 1638 tap FIR = Number of taps / 2 - 1
+      unit: samples
+      subsample: false
+
 # ?? The infrasonic filter affects phase.  For simplicity and performance,
 # ?? it should probably be made part of the lowpass filter.
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
-    name: mono
-
+    name: 
+    
   - type: Filter
     channel: 0
     names:
     - highpass
     - main_fir
-
 
   - type: Filter
     channel: 1
@@ -115,6 +122,7 @@ pipeline:
   - type: Filter
     channel: 2
     names:
+    - sub_delay
     - infrasonic
     - lowpass
 
