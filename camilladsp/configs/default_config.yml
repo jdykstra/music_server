@@ -111,7 +111,7 @@ filters:
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
-    name: 
+    name: mono
     
   - type: Filter
     channel: 0
