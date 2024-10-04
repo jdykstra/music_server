@@ -1,8 +1,9 @@
-title: "Minimum Phase 2800 - 8/1/2024"
-description: >
-  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
+title: "Subwoofer crossover"
+description: <
+  Mains:  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
   Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
+  Sub:  20 Hz highpass, 100 Hz lowpass, 1638 tap FIR, 818 sample delay to compensate for FIR.
 
 devices:
   samplerate: 44100
@@ -16,11 +17,56 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # Write to the default subdevice of the Benchmark DAC
+    # ALSA device constructed by compositing Benchmark DAC - Channels 0 and 1
+    # and Dell Latitude integrated audio - Channels 2 and 3
     type: Alsa
-    channels: 2
-    device: "hw:B20,0"
+    channels: 4
+    device: "composite_dac"
     format: S32LE
+    
+mixers:
+  mono:
+    channels:
+      in: 2
+      out: 3
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+      - dest: 2                 # Output to channel 2
+        sources:
+          - channel: 0          # Input from channels 0 and 1
+            gain: -6
+          - channel: 1       
+            gain: -6               
+  
+  invert:
+    channels:
+      in: 3
+      out: 4
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+      - dest: 2
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 3                 # Output to channel 3
+        sources:
+          - channel: 2          # Input from channel 2
+            gain: 0
+            inverted: true               
 
 filters:
   infrasonic:
@@ -29,21 +75,65 @@ filters:
       type:  HighpassFO
     type: Biquad
 
-  fir_a:
+# Highpass / Lowpass 2nd order (from camilladsp example "all filters")
+# Note that the hardware filter in the subwoofer is 1st order, which 
+# would be a Q of 0.5 (I think).
+  highpass:
+    type: Biquad
+    parameters:
+      type: Highpass
+      freq: 100
+      q: 1.0
+
+  lowpass:
+    type: Biquad
+    parameters:
+      type: Lowpass
+      freq: 100
+      q: 1.0
+
+  main_fir:
     type: Conv
     parameters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
 
+# Delay the sub signal to compensate for the FIR filter on the mains.
+  sub_delay:
+    type: Delay
+    parameters:
+      delay: 818       # for a 1638 tap FIR = Number of taps / 2 - 1
+      unit: samples
+      subsample: false
+
+# ?? The infrasonic filter affects phase.  For simplicity and performance,
+# ?? it should probably be made part of the lowpass filter.
 pipeline:
+  - type: Mixer
+    description: "Mix input channels 0 and 1 to new mono channel 2"
+    name: 
+    
   - type: Filter
     channel: 0
     names:
-    - infrasonic
-    - fir_a
+    - highpass
+    - main_fir
 
   - type: Filter
     channel: 1
     names:
+    - highpass
+    - main_fir
+
+  - type: Filter
+    channel: 2
+    names:
+    - sub_delay
     - infrasonic
-    - fir_a
+    - lowpass
+
+  - type: Mixer
+    description: "Invert mono channel 2 to channel 3 for balanced output"
+    name: invert
+
+
