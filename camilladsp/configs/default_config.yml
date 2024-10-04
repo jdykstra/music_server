@@ -1,5 +1,5 @@
 title: "Subwoofer crossover"
-description: <
+description: >
   Mains:  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
   Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
