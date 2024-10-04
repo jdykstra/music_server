@@ -107,8 +107,7 @@ pipeline:
     channel: 2
     names:
     - infrasonic
-#  This lowpass filter is redundant with the one in the subwoofer.
-#    - lowpass
+    - lowpass
 
   - type: Mixer
     description: "Invert mono channel 2 to channel 3 for balanced output"
