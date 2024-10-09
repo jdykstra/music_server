@@ -3,7 +3,7 @@ description: >
   Mains:  Minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
   Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
-  Sub:  20 Hz highpass, 100 Hz lowpass, delay for mains FIR etc. chosen totally by ear.
+  Sub:  Impulse response from 10/8/2024 speaker measurement run.
 
 devices:
   samplerate: 44100
@@ -98,6 +98,12 @@ filters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
 
+  sub_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/10-8_impulse.wav
+
 # Delay the sub signal to compensate for the FIR filter on the mains.
   sub_delay:
     type: Delay
@@ -128,9 +134,8 @@ pipeline:
   - type: Filter
     channel: 2
     names:
-    - sub_delay
-    - infrasonic
     - lowpass
+    - sub_fir
 
   - type: Mixer
     description: "Invert mono channel 2 to channel 3 for balanced output"
