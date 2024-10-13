@@ -1,0 +1,33 @@
+#  This file is copied to the user's .asoundrc file during installation.
+#  It defines two ALSA PCM devices that are composites of the
+#  Benchmark DAC (for the main speakers) and the laptop's headphone
+#  output (for the subwoofer).
+pcm.!default {
+    type plug
+    slave.pcm "composite_dac"
+}
+
+pcm.composite_dac{
+    type route
+    slave.pcm "multi_output"
+    ttable.0.0 1  # All 4 channels one-to-one with multi-output channels
+    ttable.1.1 1  
+    ttable.2.2 1  
+    ttable.3.3 1
+}
+
+pcm.multi_output {
+    type multi;
+    slaves.a.pcm "hw:2,0"  # Benchmark DAC
+    slaves.b.pcm "hw:1,0"  # Intel built-in audio
+    slaves.a.channels 2
+    slaves.b.channels 2
+    bindings.0.slave a
+    bindings.0.channel 0
+    bindings.1.slave a
+    bindings.1.channel 1
+    bindings.2.slave b
+    bindings.2.channel 0
+    bindings.3.slave b
+    bindings.3.channel 1
+}

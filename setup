@@ -19,6 +19,10 @@ rm -rf "$PYTHON_ENVIRONMENT" "$QUOD_LIBET_DIR" "$CAMILLADSP_DIR"/bin "$CAMILLADS
 # Place for log files.
 mkdir -p $LOGS
 
+# Copy the custom .asoundrc file into the user's home directory.
+# Note that this will overwrite any existing .asoundrc file.
+cp files_to_be_copied/jwd_asoundrc ~/.asoundrc
+
 # Create a Python virtual environment based on the current default Python. 
 python3 -m venv "$PYTHON_ENVIRONMENT"
 
@@ -48,7 +52,7 @@ unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 # We do this because the config file contained in the GUI release 
 # tarball uses relative pathnames.  Leave the original file in  place so 
 # we don't accidentally remove it when updating the repository.
-cp jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/config/camillagui.yml
+cp files_to_be_copied/jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/config/camillagui.yml
 
 # Install camilladsp-backend's dependencies.
 "$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
