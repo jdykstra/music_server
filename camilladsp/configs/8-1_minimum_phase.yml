@@ -1,6 +1,6 @@
-title: "Subwoofer crossover with 10/13 mains filter"
+title: "Subwoofer crossover with 8/1 mains filter"
 description: >
-  Mains:  10/13 minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
+  Mains:  8/1 minimum Phase FIR.  Derived from 7/12/2024 speaker measurement run, using data from #2800 only.
   Processed re my current "canonical" method, with a FDW of 15 cycles and smoothing of 1/6 octave.
   Infrasonic filter is a 20 Hz highpass.
   Sub:  Impulse response from 10/8/2024 speaker measurement run.
@@ -41,9 +41,9 @@ mixers:
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
-            gain: 6
+            gain: -6
           - channel: 1       
-            gain: 6               
+            gain: -6               
   
   invert:
     channels:
@@ -53,11 +53,11 @@ mixers:
       - dest: 0
         sources:
           - channel: 0
-            gain: 6
+            gain: 0
       - dest: 1
         sources:
           - channel: 1
-            gain: 6
+            gain: 0
       - dest: 2
         sources:
           - channel: 2
@@ -92,17 +92,11 @@ filters:
       freq: 100
       q: 1.0
 
-  l_fir:
+  main_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/10-13_L_minimal_impulse.wav
-
-  r_fir:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/10-13_R_minimal_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/8-1_2800_minimum_phase.wav
 
   sub_fir:
     type: Conv
