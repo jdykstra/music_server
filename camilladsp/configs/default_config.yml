@@ -2,7 +2,7 @@ title: "Subwoofer crossover with 10/13 mains filter"
 description: >
   Mains:  10/13 minimum Phase FIR, processed using "important note" method.
   Infrasonic filter is a 20 Hz highpass.
-  Sub:  Impulse response from 10/8/2024 speaker measurement run.
+  Sub:  Impulse response from 10/8/2024 speaker measurements and filter creation.
 
 devices:
   samplerate: 44100
@@ -139,7 +139,6 @@ pipeline:
   - type: Filter
     channel: 2
     names:
-    - lowpass
     - sub_fir
 
   - type: Mixer
