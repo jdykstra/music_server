@@ -113,7 +113,7 @@ filters:
   sub_delay:
     type: Delay
     parameters:
-      delay: 155       # Ballpark by ear, tweaked by GD measurements.
+      delay: 170       # Ballpark by ear
       unit: ms
       subsample: false
 
