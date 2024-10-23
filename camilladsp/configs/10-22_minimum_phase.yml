@@ -106,7 +106,7 @@ filters:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/10-22_sub_amplitude_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/10-22_sub_amplitude_impulse_B.wav
 
 # Delay the sub signal to compensate for the FIR filter on the mains.
   sub_delay:
