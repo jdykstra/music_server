@@ -35,7 +35,7 @@ mixers:
       - dest: 1
         sources:
           - channel: 1
-            gain: -10
+            gain: 0
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
