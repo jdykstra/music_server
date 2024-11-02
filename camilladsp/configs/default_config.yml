@@ -41,9 +41,9 @@ mixers:
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
-            gain: 6
+            gain: -6
           - channel: 1       
-            gain: 6               
+            gain: -6               
   
   invert:
     channels:
@@ -53,11 +53,11 @@ mixers:
       - dest: 0
         sources:
           - channel: 0
-            gain: 6
+            gain: 0
       - dest: 1
         sources:
           - channel: 1
-            gain: 6
+            gain: 0
       - dest: 2
         sources:
           - channel: 2
