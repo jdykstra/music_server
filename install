@@ -53,4 +53,4 @@ cp jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/config/camillagui.yml
 # Install camilladsp-backend's dependencies.
 "$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
 
-echo "**********  Setup Completed  **********"
+echo "**********  Install Success!  **********"
