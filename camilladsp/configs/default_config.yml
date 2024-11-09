@@ -62,11 +62,11 @@ mixers:
         sources:
           - channel: 2
             gain: 0
+            inverted: true               
       - dest: 3                 # Output to channel 3
         sources:
           - channel: 2          # Input from channel 2
             gain: 0
-            inverted: true               
 
 filters:
   infrasonic:
