@@ -1,0 +1,50 @@
+title: "DAC comparison"
+description: >
+  Input left channel routed to composite channels 2 (DAC2 left) and 1 (DAC3 right).
+
+devices:
+  samplerate: 44100
+  chunksize: 2048
+  capture_samplerate: 44100
+  enable_rate_adjust: true
+  capture:
+    # Read from the default subdevice of the ALSA loopback device.
+    type: Alsa
+    channels: 2
+    device: "hw:Loopback,1"
+    format: S16LE
+  playback:
+    # ALSA device constructed by compositing Benchmark DAC - Channels 0 and 1
+    # and Dell Latitude integrated audio - Channels 2 and 3
+    type: Alsa
+    channels: 4
+    device: "composite_dac"
+    format: S32LE
+    
+mixers:
+  duplicate:
+    channels:
+      in: 2
+      out: 3
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: -100
+      - dest: 1
+        sources:
+          - channel: 0
+            gain: 0
+      - dest: 2                 # Output to channel 2
+        sources:
+          - channel: 0          # Input from channels 0
+            gain: 0
+  
+
+pipeline:
+  - type: Mixer
+    description: ""
+    name: duplicate
+    
+
+
