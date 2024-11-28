@@ -29,7 +29,7 @@ $PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
 # Start camilladsp.  It will error out if there is nothing connected to the input side
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
 # starting up. 
-sleep 10
+sleep 15
 $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yml &
 
 # Start the backend for the camiliadsp GUI.
