@@ -66,7 +66,8 @@ mixers:
         sources:
           - channel: 2 
             gain: 0
- 
+
+filters:
   l_fir:
     type: Conv
     parameters:
