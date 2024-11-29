@@ -19,8 +19,8 @@ pcm.composite_dac{
 
 pcm.multi_output {
     type multi;
-    slaves.a.pcm "hw:B20,0"    # Benchmark DAC2 feeding subwoofer
-    slaves.a.pcm "hw:DAC3,0"    # Benchmark DAC3 feeding mains amplifiers
+    slaves.a.pcm "hw:B20,0"     # Benchmark DAC2 feeding subwoofer
+    slaves.b.pcm "hw:DAC3,0"    # Benchmark DAC3 feeding mains amplifiers
     slaves.a.channels 2
     slaves.b.channels 2
     bindings.0.slave a
