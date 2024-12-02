@@ -47,7 +47,7 @@ mixers:
   duplicate:
     channels:
       in: 3
-      out: 4
+      out: 10
     mapping:
       - dest: 0
         sources:
@@ -65,6 +65,12 @@ mixers:
         sources:
           - channel: 2 
             gain: 0
+      - dest: 4  
+      - dest: 5   
+      - dest: 6   
+      - dest: 7   
+      - dest: 8   
+      - dest: 9   
 
 filters:
   l_fir:
