@@ -17,11 +17,10 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # ALSA device constructed by compositing Benchmark DAC3 - Channels 0 and 1
-    # and Benchmark DAC2 - Channels 2 and 3
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.
     type: Alsa
     channels: 4
-    device: "composite_dac"
+    device: "hw:USB24192396,0"
     format: S32LE
     
 mixers:
@@ -93,7 +92,6 @@ filters:
       delay: 0       # Ballpark by ear
       unit: ms
       subsample: false
-
 
 pipeline:
   - type: Mixer
