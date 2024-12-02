@@ -17,8 +17,8 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # ALSA device constructed by compositing Benchmark DAC - Channels 0 and 1
-    # and Dell Latitude integrated audio - Channels 2 and 3
+    # ALSA device constructed by compositing Benchmark DAC3 - Channels 0 and 1
+    # and Benchmark DAC2 - Channels 2 and 3
     type: Alsa
     channels: 4
     device: "composite_dac"
@@ -41,11 +41,11 @@ mixers:
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
-            gain: -6
+            gain: -18
           - channel: 1       
-            gain: -6               
+            gain: -18           
   
-  invert:
+  duplicate:
     channels:
       in: 3
       out: 4
@@ -62,36 +62,12 @@ mixers:
         sources:
           - channel: 2
             gain: 0
-            inverted: true               
-      - dest: 3                 # Output to channel 3
+      - dest: 3   
         sources:
-          - channel: 2          # Input from channel 2
+          - channel: 2 
             gain: 0
 
 filters:
-  infrasonic:
-    parameters:
-      freq:  20
-      type:  HighpassFO
-    type: Biquad
-
-# Highpass / Lowpass 2nd order (from camilladsp example "all filters")
-# Note that the hardware filter in the subwoofer is 1st order, which 
-# would be a Q of 0.5 (I think).
-  highpass:
-    type: Biquad
-    parameters:
-      type: Highpass
-      freq: 100
-      q: 1.0
-
-  lowpass:
-    type: Biquad
-    parameters:
-      type: Lowpass
-      freq: 100
-      q: 1.0
-
   l_fir:
     type: Conv
     parameters:
@@ -114,12 +90,11 @@ filters:
   sub_delay:
     type: Delay
     parameters:
-      delay: 170       # Ballpark by ear
+      delay: 0       # Ballpark by ear
       unit: ms
       subsample: false
 
-# ?? The infrasonic filter affects phase.  For simplicity and performance,
-# ?? it should probably be made part of the lowpass filter.
+
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
@@ -141,7 +116,5 @@ pipeline:
     - sub_fir
 
   - type: Mixer
-    description: "Invert mono channel 2 to channel 3 for balanced output"
-    name: invert
-
-
+    description: "Duplicate mono channel 2 to channel 3"
+    name: duplicate
