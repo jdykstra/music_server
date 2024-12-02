@@ -66,11 +66,18 @@ mixers:
           - channel: 2 
             gain: 0
       - dest: 4  
-      - dest: 5   
-      - dest: 6   
-      - dest: 7   
-      - dest: 8   
-      - dest: 9   
+        sources:
+      - dest: 5  
+        sources:
+      - dest: 6  
+        sources:
+      - dest: 7  
+        sources:
+      - dest: 8  
+        sources:
+      - dest: 9  
+        sources:
+            
 
 filters:
   l_fir:
