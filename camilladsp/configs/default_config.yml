@@ -65,18 +65,30 @@ mixers:
         sources:
           - channel: 2 
             gain: 0
-      - dest: 4  
+      - dest: 4  # Not used
         sources:
-      - dest: 5  
+          - channel: 2
+            gain: 0
+      - dest: 5  # Not used
         sources:
-      - dest: 6  
+          - channel: 2
+            gain: 0
+      - dest: 6  # Not used
         sources:
-      - dest: 7  
+          - channel: 2
+            gain: 0
+      - dest: 7  # Not used
         sources:
-      - dest: 8  
+          - channel: 2
+            gain: 0
+      - dest: 8  # Not used
         sources:
-      - dest: 9  
+          - channel: 2
+            gain: 0
+      - dest: 9  # Not used
         sources:
+          - channel: 2
+            gain: 0
             
 
 filters:
