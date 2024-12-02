@@ -17,9 +17,9 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  Remaining channels are unused.
     type: Alsa
-    channels: 4
+    channels: 10
     device: "hw:USB24192396,0"
     format: S32LE
     
