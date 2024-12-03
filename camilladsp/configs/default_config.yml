@@ -19,7 +19,7 @@ devices:
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  Remaining channels are unused.
     type: Alsa
-    channels: 10
+    channels: 34
     device: "hw:USB24192396,0"
     format: S32LE
     
@@ -47,7 +47,7 @@ mixers:
   duplicate:
     channels:
       in: 3
-      out: 10
+      out: 34
     mapping:
       - dest: 0
         sources:
@@ -86,6 +86,102 @@ mixers:
           - channel: 2
             gain: 0
       - dest: 9  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 10  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 11  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 12  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 13  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 14  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 15  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 16  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 17  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 18  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 19  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 20  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 21  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 22  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 23  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 24  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 25  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 26  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 27  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 28  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 29  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 30  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 31  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 32  # Not used
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 33  # Not used
         sources:
           - channel: 2
             gain: 0
