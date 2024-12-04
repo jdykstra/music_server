@@ -47,7 +47,7 @@ mixers:
   duplicate:
     channels:
       in: 3
-      out: 24
+      out: 34
     mapping:
       - dest: 0
         sources:
