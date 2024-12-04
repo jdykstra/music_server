@@ -19,7 +19,7 @@ devices:
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  Remaining channels are unused.
     type: Alsa
-    channels: 34
+    channels: 24
     device: "hw:USB24192396,0"
     format: S32LE
     
@@ -145,47 +145,7 @@ mixers:
         sources:
           - channel: 2
             gain: 0
-      - dest: 24  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 25  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 26  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 27  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 28  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 29  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 30  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 31  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 32  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-      - dest: 33  # Not used
-        sources:
-          - channel: 2
-            gain: 0
-            
+
 
 filters:
   l_fir:
