@@ -17,11 +17,14 @@ devices:
     device: "hw:Loopback,1"
     format: S16LE
   playback:
-    # ALSA device constructed by compositing Benchmark DAC3 - Channels 0 and 1
-    # and Benchmark DAC2 - Channels 2 and 3
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
+    # The Digiface USB supports different sample rates depending on how many inputs
+    # and outputs are in use.  The current (2024) Linux sound drivers only allow
+    # 44.1 KHz to be selected if all 34 channels are in use.  We output silence to
+    # the unused channels.
     type: Alsa
-    channels: 4
-    device: "composite_dac"
+    channels: 34
+    device: "hw:USB24192396,0"
     format: S32LE
     
 mixers:
@@ -45,10 +48,11 @@ mixers:
           - channel: 1       
             gain: -18           
   
-  duplicate:
+  #  Output silence to all unused output channels.  See comment in devices specification.
+  fanout:
     channels:
       in: 3
-      out: 4
+      out: 34
     mapping:
       - dest: 0
         sources:
@@ -65,8 +69,128 @@ mixers:
       - dest: 3   
         sources:
           - channel: 2 
-            gain: 0
-
+            gain: -100
+      - dest: 4  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 5  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 6  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 7  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 8  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 9  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 10  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 11  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 12  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 13  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 14  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 15  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 16  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 17  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 18  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 19  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 20  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 21  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 22  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 23  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 24  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 25  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 26  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 27  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 28  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 29  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 30  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 31  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 32  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 33  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+          
 filters:
   l_fir:
     type: Conv
@@ -94,7 +218,6 @@ filters:
       unit: ms
       subsample: false
 
-
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
@@ -116,5 +239,5 @@ pipeline:
     - sub_fir
 
   - type: Mixer
-    description: "Duplicate mono channel 2 to channel 3"
-    name: duplicate
+    description: "Fan out to all 34 channels"
+    name: fanout

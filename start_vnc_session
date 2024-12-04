@@ -2,6 +2,8 @@
 #####  set -e
 set -x
 
+DIGIFACE_USB_NAME="USB24192396"
+
 # This script is executed by the VNC server when it creates a new session.
 # The script starts the processes that constitute the music server.
 # First set up the display environment, as usually done by an xstartup script.
@@ -25,6 +27,13 @@ irexec &
 
 # Start Quod Libet music player.
 $PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
+
+# Put all outputs of the Digiface USB into S/PDIF mode.  We only use the first two, but
+# it's prudent to keep everything consistent.
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 3 Format' 'S/PDIF'
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 4 Format' 'S/PDIF'
 
 # Start camilladsp.  It will error out if there is nothing connected to the input side
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
