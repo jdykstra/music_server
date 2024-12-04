@@ -48,6 +48,7 @@ mixers:
           - channel: 1       
             gain: -18           
   
+  #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
     channels:
       in: 3
