@@ -19,10 +19,6 @@ rm -rf "$PYTHON_ENVIRONMENT" "$QUOD_LIBET_DIR" "$CAMILLADSP_DIR"/bin "$CAMILLADS
 # Place for log files.
 mkdir -p $LOGS
 
-# Copy the custom .asoundrc file into the user's home directory.
-# Note that this will overwrite any existing .asoundrc file.
-cp files_to_be_copied/jwd_asoundrc ~/.asoundrc
-
 # Create a Python virtual environment based on the current default Python. 
 python3 -m venv "$PYTHON_ENVIRONMENT"
 
