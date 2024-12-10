@@ -33,6 +33,11 @@ $PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
 
+# ALSA debug settings
+export LIBASOUND_DEBUG=2
+export LIBASOUND_DEBUG_VERBOSE=1
+export LIBASOUND_DEBUG_FILE=$LOGS/alsa-debug.log
+
 # Start camilladsp.  It will error out if there is nothing connected to the input side
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
 # starting up. 
