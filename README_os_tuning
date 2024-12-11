@@ -1,0 +1,10 @@
+Camilladsp must run with increased priority on the Latitude E6500 to prevent underruns.  
+Create /etc/security/limits.d/audio.conf, containing these lines:
+
+# Added by JwD to allow members of the audio group to increase 
+# process priority.
+@audio  - nice -20
+
+Do this:
+    sudo groupadd audio
+    sudo usermod -aG audio JwD
