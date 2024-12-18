@@ -6,7 +6,7 @@ description: >
   Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
 
 devices:
-  samplerate: 192000
+  samplerate: 176400
   chunksize: 2048
   capture_samplerate: 44100
   enable_rate_adjust: true
@@ -26,6 +26,8 @@ devices:
     channels: 10
     device: "hw:USB24192396,0"
     format: S32LE
+   resampler:
+    type: Synchronous
     
 mixers:
   mono:
