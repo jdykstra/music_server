@@ -6,7 +6,7 @@ description: >
   Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
 
 devices:
-  samplerate: 44100
+  samplerate: 192000
   chunksize: 2048
   capture_samplerate: 44100
   enable_rate_adjust: true
@@ -23,7 +23,7 @@ devices:
     # 44.1 KHz to be selected if all 34 channels are in use.  We output silence to
     # the unused channels.
     type: Alsa
-    channels: 34
+    channels: 10
     device: "hw:USB24192396,0"
     format: S32LE
     
@@ -52,7 +52,7 @@ mixers:
   fanout:
     channels:
       in: 3
-      out: 34
+      out: 10
     mapping:
       - dest: 0
         sources:
@@ -91,102 +91,6 @@ mixers:
           - channel: 2
             gain: -100
       - dest: 9  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 10  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 11  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 12  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 13  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 14  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 15  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 16  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 17  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 18  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 19  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 20  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 21  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 22  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 23  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 24  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 25  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 26  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 27  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 28  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 29  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 30  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 31  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 32  # Not used
-        sources:
-          - channel: 2
-            gain: -100
-      - dest: 33  # Not used
         sources:
           - channel: 2
             gain: -100
