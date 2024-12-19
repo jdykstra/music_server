@@ -26,7 +26,7 @@ devices:
     channels: 10
     device: "hw:USB24192396,0"
     format: S32LE
-   resampler:
+  resampler:
     type: Synchronous
     
 mixers:
