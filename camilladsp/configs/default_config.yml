@@ -9,7 +9,7 @@ description: >
 
 devices:
   samplerate: 176400
-  chunksize: 4096
+  chunksize: 8192
   capture_samplerate: 44100
   enable_rate_adjust: false
   capture:
