@@ -9,9 +9,12 @@ description: >
 
 devices:
   samplerate: 176400
-  chunksize: 8192
+  chunksize: 4096
   capture_samplerate: 44100
-  enable_rate_adjust: false
+  enable_rate_adjust: true
+  resampler:
+    type: AsyncSinc
+    profile: Balanced
   capture:
     # Read from the default subdevice of the ALSA loopback device.
     type: Alsa
@@ -28,8 +31,6 @@ devices:
     channels: 10
     device: "hw:USB24192396,0"
     format: S32LE
-  resampler:
-    type: Synchronous
     
 mixers:
   mono:
