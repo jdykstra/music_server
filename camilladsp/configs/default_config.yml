@@ -16,7 +16,8 @@ devices:
   #  Target level set at 3/4 of the playback buffer,  per 
   #  https://www.diyaudio.com/community/threads/switching-alsa-loopback-timer-source-to-playback-hw-device.408077/
   #  This is equal to 0.75 * queue_limit * chunksize.
-  target_level: 24576
+  # ???????"?"
+  target_level: 16383
   resampler:
     type: Synchronous
   capture:
