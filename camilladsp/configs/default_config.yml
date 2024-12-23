@@ -8,16 +8,15 @@ description: >
   Recomputed 12/19/2024 for 176.4 KHz sample rate.
 
 devices:
-  samplerate: 176400
-  chunksize: 8192
   capture_samplerate: 44100
+  # High sample rate to allow for high quality filtering.
+  # Current value is 4*capture_samplerate.
+  samplerate: 176400
   enable_rate_adjust: true
-
-  #  Target level set at 3/4 of the playback buffer,  per 
-  #  https://www.diyaudio.com/community/threads/switching-alsa-loopback-timer-source-to-playback-hw-device.408077/
-  #  This is equal to 0.75 * queue_limit * chunksize.
-  # ???????"?"
-  target_level: 16383
+  chunksize: 8192
+  # Increase target level to avoid underruns.  Current value is 
+  # max alllowed;  it probably could be less.
+  target_level: 24576
   resampler:
     type: Synchronous
   capture:
