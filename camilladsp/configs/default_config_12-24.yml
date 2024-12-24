@@ -1,0 +1,21 @@
+# ...existing code...
+filters:
+  l_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+
+  r_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+
+  sub_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
+
+# ...existing code...
