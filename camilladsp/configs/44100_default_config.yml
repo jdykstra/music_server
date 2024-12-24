@@ -12,7 +12,7 @@ devices:
   chunksize: 8192
   # Increase target level to avoid underruns.  Current value is 
   # max alllowed;  it probably could be less.
-  target_level: 16384
+  target_level: 16383
   resampler:
     type: Synchronous
   capture:
