@@ -103,25 +103,33 @@ mixers:
         sources:
           - channel: 2
             gain: -100
-        
+          
 filters:
   l_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-L_minimum_impulse.wav
 
   r_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-L_minimum_impulse.wav
 
   sub_fir:
     type: Conv
     parameters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
+
+# Delay the sub signal to compensate for the FIR filter on the mains.
+  sub_delay:
+    type: Delay
+    parameters:
+      delay: 0       # Ballpark by ear
+      unit: ms
+      subsample: false
 
 pipeline:
   - type: Mixer

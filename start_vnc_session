@@ -26,7 +26,7 @@ source env.sh
 irexec &
 
 # Start Quod Libet music player.
-$PYTHON $QUOD_LIBET_DIR/quodlibet.py > $LOGS/quodlibet.log   &
+$PYTHON $QUOD_LIBET_DIR/quodlibet.py --debug &> $LOGS/quodlibet.log   &
 
 # At kernel boot time, Linux puts all four of the Digiface USB outputs into ADAT mode 
 # (snd_usb_rme_digiface_boot_quirk()).  Set the two outputs that we use back into S/PDIF mode.
