@@ -109,19 +109,19 @@ filters:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_mains_minimum_impulse.wav
 
   r_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-24_L_minimum_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_mains_minimum_impulse.wav
 
   sub_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_sub_amplitude_impulse_B.wav
 
   FS_limiter:
     type: Limiter
