@@ -150,7 +150,7 @@ pipeline:
     - l_fir
     - FS_limiter
 
-  - type: Filterp
+  - type: Filter
     channel: 1
     names:
     - r_fir
