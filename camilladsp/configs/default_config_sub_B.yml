@@ -54,9 +54,10 @@ mixers:
         sources:
           - channel: 0          # Input from channels 0 and 1
             gain: -12
+            inverted: true
           - channel: 1       
             gain: -12 
-        invert: true          
+            inverted: true
   
   #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
