@@ -118,7 +118,8 @@ filters:
     parameters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/1-25_minimum_phase_impulse.wav
-_  sub_fir:
+
+  sub_fir:
     type: Conv
     parameters:
       type: Wav
