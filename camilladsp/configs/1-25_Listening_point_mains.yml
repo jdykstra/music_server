@@ -54,10 +54,8 @@ mixers:
         sources:
           - channel: 0          # Input from channels 0 and 1
             gain: -12
-            inverted: false
           - channel: 1       
             gain: -12 
-            inverted: false
   
   #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
@@ -125,14 +123,6 @@ filters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_sub_amplitude_impulse_B.wav
   
-  sub_phase_delay:
-    type: Delay
-    parameters:
-      delay: 8.3
-      unit: ms
-      subsample: false
-
-
   FS_limiter:
     type: Limiter
     parameters:
@@ -160,7 +150,6 @@ p
     channel: 2
     names:
     - sub_fir
-    - sub_phase_delay
     - FS_limiter
 
   - type: Mixer
