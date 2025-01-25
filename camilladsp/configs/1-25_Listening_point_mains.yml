@@ -121,7 +121,7 @@ filters:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_sub_amplitude_impulse_B.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
   
   FS_limiter:
     type: Limiter
