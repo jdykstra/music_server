@@ -111,15 +111,14 @@ filters:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_mains_minimum_impulse_B.wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/1-25_minimum_phase_impulse.wav
 
   r_fir:
     type: Conv
     parameters:
       type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/1-24-25_mains_minimum_impulse_B.wav
-
-  sub_fir:
+      filename: /home/jwd/music_server/camilladsp/coeffs/1-25_minimum_phase_impulse.wav
+_  sub_fir:
     type: Conv
     parameters:
       type: Wav
