@@ -123,6 +123,13 @@ filters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
 
+  sub_delay_compensation:
+    type: Delay
+    parameters:
+      delay: 20
+      unit: ms
+      subsample: false
+
   FS_limiter:
     type: Limiter
     parameters:
@@ -137,12 +144,14 @@ pipeline:
   - type: Filter
     channel: 0
     names:
+    - sub_delay_compensation 
     - l_fir
     - FS_limiter
 
   - type: Filter
     channel: 1
     names:
+    - sub_delay_compensation
     - r_fir
     - FS_limiter
 
