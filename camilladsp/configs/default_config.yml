@@ -53,9 +53,9 @@ mixers:
       - dest: 2                 # Output to channel 2
         sources:
           - channel: 0          # Input from channels 0 and 1
-            gain: -18
+            gain: -6
           - channel: 1       
-            gain: -18           
+            gain: -6           
   
   #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
@@ -126,7 +126,7 @@ filters:
   sub_delay_compensation:
     type: Delay
     parameters:
-      delay: 20
+      delay: 27
       unit: ms
       subsample: false
 
