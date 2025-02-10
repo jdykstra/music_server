@@ -16,6 +16,9 @@ vncconfig -iconic &
 # ??  it's an asynchronous process.
 x-window-manager &
 
+# Switch to a non-compositing window manager for faster opacity transitions.
+metacity --replace &
+
 # We need to move into the music_server directory (i.e. where this
 # script is located).
 cd "$( dirname "$0" )"

@@ -3,6 +3,6 @@
 # This script is executed by GNOME as it creates the sesssion for the laptop's screen.
 # It is pointed to by ~/.config/autostart/start_server.desktop.
 
-tigervncserver :1 -rfbauth ~/.vnc/passwd -localhost no -geometry 887x637 -xstartup /home/jwd/music_server/start_vnc_session
+tigervncserver :1 -rfbauth ~/.vnc/passwd -localhost no -geometry 887x637 -depth 16 -xstartup /home/jwd/music_server/start_vnc_session
 
 #   vncserver :1 -localhost no -geometry 1024x900 
