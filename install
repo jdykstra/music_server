@@ -6,7 +6,7 @@ set -x
 # Some Ubuntu Jammy packages needed:  python3 python3.11-venv libgirepository1.0-dev.
 
 # Versions to be downloaded and installed.
-QUODLIBET_BRANCH=set_volume_from_peak
+QUODLIBET_BRANCH=jwd_customizations
 CAMILLADSP_RELEASE=v2.0.3
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 
