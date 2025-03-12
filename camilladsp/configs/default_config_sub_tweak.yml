@@ -37,28 +37,25 @@ devices:
     format: S32LE
     
 mixers:
-
-  # Generate a new mono channel for the sub from the left and right channels.
-  # Also tweak the L/R balance to compensate for room effects.
   mono:
     channels:
       in: 2
       out: 3
     mapping:
-      - dest: 0               # Left channel
+      - dest: 0
         sources:
           - channel: 0
             gain: 0
-      - dest: 1               # Right channel
+      - dest: 1
         sources:
           - channel: 1
-            gain: -2.2        # Adjust L/R balance
-      - dest: 2               # New mono channel for sub
+            gain: 0
+      - dest: 2                 # Output to channel 2
         sources:
-          - channel: 0        
-            gain: -6          # Compensate for summing
+          - channel: 0          # Input from channels 0 and 1
+            gain: -12
           - channel: 1       
-            gain: -6           
+            gain: -12           
   
   #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
@@ -126,19 +123,6 @@ filters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
 
-  sub_delay_compensation:
-    type: Delay
-    parameters:
-      delay: 27
-      unit: ms
-      subsample: false
-
-  FS_limiter:
-    type: Limiter
-    parameters:
-      soft_clip: false
-      clip_limit: -1.0
-
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
@@ -147,22 +131,17 @@ pipeline:
   - type: Filter
     channel: 0
     names:
-    - sub_delay_compensation 
     - l_fir
-    - FS_limiter
 
   - type: Filter
     channel: 1
     names:
-    - sub_delay_compensation
     - r_fir
-    - FS_limiter
 
   - type: Filter
     channel: 2
     names:
     - sub_fir
-    - FS_limiter
 
   - type: Mixer
     description: "Fan out to all channels"
