@@ -52,7 +52,7 @@ mixers:
       - dest: 1               # Right channel
         sources:
           - channel: 1
-            gain: -3.0        # Adjust L/R balance
+            gain: -2.2        # Adjust L/R balance
       - dest: 2               # New mono channel for sub
         sources:
           - channel: 0        
