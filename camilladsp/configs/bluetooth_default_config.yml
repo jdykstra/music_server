@@ -20,7 +20,14 @@ devices:
   resampler:
     type: Synchronous
   capture:
-    # Read from the default subdevice of the ALSA loopback device.
+    # Read from bluetooth device.  This is the monitor device for the
+    # bluetooth device.  The actual device is "bluealsa:DEV=XX:XX:XX:XX:XX:XX,PROFILE=a2dp".
+    # It is not possible to use the bluetooth device directly as the capture device
+    # because the bluetooth device does not support the required sample rate.
+    # The monitor device is a virtual device created by bluealsa that allows
+    # the bluetooth device to be used as a capture device.
+    # The monitor device is not available in the alsa device list.
+    # It is found from "pactl list sources short"
     type: pulse
     channels: 2
     device: "alsa_output.pci-0000_00_1b.0.analog-stereo.monitor"
