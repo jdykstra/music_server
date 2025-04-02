@@ -148,20 +148,17 @@ pipeline:
     channel: 0
     names:
     - sub_delay_compensation 
-    - l_fir
     - FS_limiter
 
   - type: Filter
     channel: 1
     names:
     - sub_delay_compensation
-    - r_fir
     - FS_limiter
 
   - type: Filter
     channel: 2
     names:
-    - sub_fir
     - FS_limiter
 
   - type: Mixer
