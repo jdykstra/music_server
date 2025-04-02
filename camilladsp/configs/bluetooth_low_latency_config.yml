@@ -20,6 +20,11 @@ devices:
   resampler:
     type: Synchronous
   capture:
+    # This way of connecting to Bluetooth is, at the least, suboptimal.
+    # I think we're reading from a stream really meant to be used for 
+    # monitoring an PA sink.  The method described in the CammilaDSP README
+    # uses Bluezalsa directly, but that software is still unstable.
+    # The comments below are mainly from Copilot and may or mayno be correct.
     # Read from bluetooth device.  This is the monitor device for the
     # bluetooth device.  The actual device is "bluealsa:DEV=XX:XX:XX:XX:XX:XX,PROFILE=a2dp".
     # It is not possible to use the bluetooth device directly as the capture device
