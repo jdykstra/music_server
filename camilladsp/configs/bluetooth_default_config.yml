@@ -48,17 +48,17 @@ mixers:
       - dest: 0               # Left channel
         sources:
           - channel: 0
-            gain: 0
+            gain: -24         # Reduce gain for reasonable volume from Mac
       - dest: 1               # Right channel
         sources:
           - channel: 1
-            gain: -1.5        # Adjust L/R balance
+            gain: -24        # Adjust L/R balance   ???????????????????????????????????
       - dest: 2               # New mono channel for sub
         sources:
           - channel: 0        
-            gain: -6          # Compensate for summing
+            gain: -30         # Compensate for summing
           - channel: 1       
-            gain: -6           
+            gain: -30          
   
   #  Output silence to all unused output channels.  See comment in devices specification.
   fanout:
