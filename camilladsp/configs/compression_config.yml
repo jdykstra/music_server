@@ -148,7 +148,7 @@ processors:
       release: 1.0
       threshold: -25
       factor: 2.0
-      makeup_gain: 15
+      makeup_gain: 0.0
       clip_limit: 0.0
       soft_clip: true
       monitor_channels: [0, 1]
