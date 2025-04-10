@@ -12,8 +12,10 @@ DIGIFACE_USB_NAME="USB24192396"
 xsetroot -solid grey
 vncconfig -iconic &
 
-# ??  I think this is aborting, but that doesn't impact the session because
-# ??  it's an asynchronous process.
+# Start DBUS, which is needed (at least) by gnome-terminal.
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+
 x-window-manager &
 
 # Switch to a non-compositing window manager for faster opacity transitions.
@@ -46,8 +48,10 @@ $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $L
 $PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
 
 # Start Firefox, showing the camilladsp GUI.
+# The snap version of Firefox does not work well without a real session,
+# so use the conventional install directly from Mozilla.  See the install script.
 firefox http://localhost:5005/gui/index.html &
 
 # Start a terminal window.  The VNC server will exit when this process does.
-xterm
+gnome-terminal --wait --geometry=80x10+0+0
 
