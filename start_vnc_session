@@ -16,6 +16,8 @@ vncconfig -iconic &
 eval $(dbus-launch --sh-syntax)
 export DBUS_SESSION_BUS_ADDRESS
 
+x-window-manager &
+
 # Switch to a non-compositing window manager for faster opacity transitions.
 metacity --replace &
 
