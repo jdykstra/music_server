@@ -12,6 +12,10 @@ DIGIFACE_USB_NAME="USB24192396"
 xsetroot -solid grey
 vncconfig -iconic &
 
+# Start DBUS, which is needed (at least) by gnome-terminal.
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+
 # ??  I think this is aborting, but that doesn't impact the session because
 # ??  it's an asynchronous process.
 x-window-manager &
