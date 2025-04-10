@@ -48,8 +48,10 @@ $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $L
 $PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
 
 # Start Firefox, showing the camilladsp GUI.
+# The snap version of Firefox does not work well without a real session,
+# so use the conventional install directly from Mozilla.  See the install script.
 firefox http://localhost:5005/gui/index.html &
 
 # Start a terminal window.  The VNC server will exit when this process does.
-gnome-terminal --wait
+gnome-terminal --wait --geometry=80x10+0+0
 

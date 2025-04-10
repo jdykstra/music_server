@@ -9,6 +9,7 @@ set -x
 QUODLIBET_BRANCH=jwd_customizations
 CAMILLADSP_RELEASE=v2.0.3
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
+FIREFOX_RELEASE=136.0.4+build1-0ubuntu0.24.10.1~mt1
 
 # Pick up global environment definitions.
 source env.sh
@@ -52,5 +53,14 @@ cp files_to_be_copied/jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/co
 
 # Install camilladsp-backend's dependencies.
 "$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
+
+# The snap version of Firefox does not work well without a real session,
+# so use the conventional install directly from Mozilla.
+# We need to specify a version because Ubuntu prioritizes the snap alternative.
+sudo add-apt-repository ppa:mozillateam/ppa
+sudo apt update
+sudo apt install firefox="$FIREFOX_RELEASE"
+sudo snap remove firefox
+sudo apt-mark hold firefox
 
 echo "**********  Install Completed Successfully  **********"
