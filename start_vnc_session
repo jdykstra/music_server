@@ -16,8 +16,7 @@ vncconfig -iconic &
 eval $(dbus-launch --sh-syntax)
 export DBUS_SESSION_BUS_ADDRESS
 
-# Switch to a non-compositing window manager for faster opacity transitions.
-metacity --replace &
+startxfce4 &
 
 # We need to move into the music_server directory (i.e. where this
 # script is located).
