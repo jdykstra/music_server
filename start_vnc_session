@@ -16,10 +16,6 @@ vncconfig -iconic &
 eval $(dbus-launch --sh-syntax)
 export DBUS_SESSION_BUS_ADDRESS
 
-# ??  I think this is aborting, but that doesn't impact the session because
-# ??  it's an asynchronous process.
-x-window-manager &
-
 # Switch to a non-compositing window manager for faster opacity transitions.
 metacity --replace &
 
@@ -53,5 +49,5 @@ $PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &
 firefox http://localhost:5005/gui/index.html &
 
 # Start a terminal window.  The VNC server will exit when this process does.
-xterm
+gnome-terminal
 
