@@ -59,7 +59,7 @@ cp files_to_be_copied/jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/co
 # We need to specify a version because Ubuntu prioritizes the snap alternative.
 sudo add-apt-repository ppa:mozillateam/ppa
 sudo apt update
-sudo apt install firefox="$FIREFOX_RELEASE"
+sudo apt install -y firefox="$FIREFOX_RELEASE"
 sudo snap remove firefox
 sudo apt-mark hold firefox
 
