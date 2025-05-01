@@ -28,7 +28,7 @@ devices:
     # the unused channels.
     type: Alsa
     channels: 34
-    device: "hw:USB24192396,0"
+    device: "hw:USB24240187,0"
     format: S32LE
     
 mixers:
