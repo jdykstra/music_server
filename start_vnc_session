@@ -26,12 +26,13 @@ metacity --replace &
 cd "$( dirname "$0" )"
 
 source env.sh
+source "$PYTHON_ENVIRONMENT/bin/activate"
 
 # Start infrared remote control daemon.
 irexec &
 
 # Start Quod Libet music player.
-$PYTHON $QUOD_LIBET_DIR/quodlibet.py &> $LOGS/quodlibet.log   &
+python3 $QUOD_LIBET_DIR/quodlibet.py &> $LOGS/quodlibet.log   &
 
 # At kernel boot time, Linux puts all four of the Digiface USB outputs into ADAT mode 
 # (snd_usb_rme_digiface_boot_quirk()).  Set the two outputs that we use back into S/PDIF mode.
@@ -45,7 +46,7 @@ sleep 10
 $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yml &
 
 # Start the backend for the camiliadsp GUI.
-$PYTHON $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
+python3 $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &    
 
 # Start Firefox, showing the camilladsp GUI.
 # The snap version of Firefox does not work well without a real session,

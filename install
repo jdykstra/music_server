@@ -22,16 +22,19 @@ mkdir -p $LOGS
 # Create a Python virtual environment based on the current default Python. 
 python3 -m venv "$PYTHON_ENVIRONMENT"
 
+# Activate the virtual environment for this shell session
+source "$PYTHON_ENVIRONMENT/bin/activate"
+
 # Install Quod Libet from my private fork.
 git clone https://github.com/jdykstra/quodlibet.git -b $QUODLIBET_BRANCH
 
 # install Quod Libet dependencies.
 # Poetry-plugin-export is needed for at least Jammy and later.
 pushd quodlibet
-"$PYTHON" -m pip install poetry poetry-plugin-export
-"$PYTHON" -m poetry env use "$PYTHON_ENVIRONMENT"/bin/python3
-"$PYTHON" -m poetry export > /tmp/requirements.txt
-"$PYTHON" -m pip install -r /tmp/requirements.txt
+pip install poetry poetry-plugin-export
+poetry env use "$(which python3)"
+poetry export > /tmp/requirements.txt
+pip install -r /tmp/requirements.txt
 popd 
 
 # Install Camilladsp from the official release.
@@ -51,7 +54,7 @@ unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 cp files_to_be_copied/jwd_camillagui.yml "$CAMILLADSP_DIR"/camillagui-backend/config/camillagui.yml
 
 # Install camilladsp-backend's dependencies.
-"$PYTHON" -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
+python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt   
 
 # The snap version of Firefox does not work well without a real session,
 # so use the conventional install directly from Mozilla.
