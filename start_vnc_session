@@ -41,7 +41,8 @@ amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
 
 # Start camilladsp.  It will error out if there is nothing connected to the input side
 # of the ALSA loopback device, so delay a while to give quod libet time to finish
-# starting up. 
+# starting up. The configuration file must be specified with a full path or websocket 
+# commands will not work.
 sleep 10
 $CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CAMILLADSP_DIR/configs/default_config.yml &
 
@@ -54,5 +55,5 @@ python3 $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log  &
 firefox http://localhost:5005/gui/index.html &
 
 # Start a terminal window.  The VNC server will exit when this process does.
-gnome-terminal --wait --geometry=80x10+0+0
+gnome-terminal --wait --geometry=80x6+0+0
 
