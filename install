@@ -7,8 +7,8 @@ set -x
 
 # Versions to be downloaded and installed.
 QUODLIBET_BRANCH=jwd-customizations
-CAMILLADSP_RELEASE=v2.0.3
-CAMILLAGUI_BACKEND_RELEASE=v2.1.1
+CAMILLADSP_RELEASE=v3.0.1
+CAMILLAGUI_BACKEND_RELEASE=v3.0.3
 
 # Pick up global environment definitions.
 source env.sh
