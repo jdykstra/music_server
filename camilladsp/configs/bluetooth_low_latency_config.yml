@@ -157,19 +157,19 @@ pipeline:
     name: mono
     
   - type: Filter
-    channels: 0
+    channels: [0]
     names:
     - sub_delay_compensation 
     - FS_limiter
 
   - type: Filter
-    channels: 1
+    channels: [1]
     names:
     - sub_delay_compensation
     - FS_limiter
 
   - type: Filter
-    channels: 2
+    channels: [2]
     names:
     - FS_limiter
 
