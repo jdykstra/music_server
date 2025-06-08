@@ -228,17 +228,17 @@ pipeline:
     name: mono
     
   - type: Filter
-    channel: 0
+    channels: 0
     names:
     - l_fir
 
   - type: Filter
-    channel: 1
+    channels: 1
     names:
     - r_fir
 
   - type: Filter
-    channel: 2
+    channels: 2
     names:
     - sub_fir
 
