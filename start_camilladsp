@@ -1,0 +1,21 @@
+#! /bin/bash
+set -x
+
+source env.sh
+
+# At kernel boot time, Linux puts all four of the Digiface USB outputs into ADAT mode 
+# (snd_usb_rme_digiface_boot_quirk()).  Set the two outputs that we use back into S/PDIF mode.
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
+
+# Choose config file based on hostname
+HOSTNAME=$(hostname)
+if [ "$HOSTNAME" = "CurrentUbuntu" ]; then
+  CONFIG_FILE="$CAMILLADSP_DIR/configs/current_ubuntu_config.yml"
+else
+  CONFIG_FILE="$CAMILLADSP_DIR/configs/default_config.yml"
+fi
+
+# Start camillaDSP.  The configuration file must be specified with a full path or websocket 
+# commands will not work.
+$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CONFIG_FILE &

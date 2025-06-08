@@ -1,0 +1,7 @@
+#! /bin/bash
+set -x
+
+source env.sh
+source "$PYTHON_ENVIRONMENT/bin/activate"
+
+python3 $CAMILLADSP_DIR/camillagui-backend/main.py > $LOGS/gui_backend.log   
