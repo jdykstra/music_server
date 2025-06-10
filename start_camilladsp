@@ -20,4 +20,4 @@ fi
 
 # Start camillaDSP.  The configuration file must be specified with a full path or websocket 
 # commands will not work.
-$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CONFIG_FILE &
+$CAMILLADSP_DIR/bin/camilladsp -w -p1234 -s $CAMILLADSP_DIR/statefile.yaml -o $LOGS/camilladsp.log $CONFIG_FILE
