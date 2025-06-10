@@ -2,8 +2,6 @@
 #####  set -e
 set -x
 
-DIGIFACE_USB_NAME="USB24240187"
-
 # This script is executed by the VNC server when it creates a new session.
 # The script starts the processes that constitute the music server.
 # First set up the display environment, as usually done by an xstartup script.
