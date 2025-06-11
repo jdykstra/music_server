@@ -10,3 +10,5 @@ coeff_dir: camilladsp/coeffs
 default_config: "default_config.yml"
 statefile_path: camilladsp/statefile.yml
 log_file: logs/camilladsp.log"
+gui_config_file: camilladsp/camillagui-backend/config/camillagui.yml
+
