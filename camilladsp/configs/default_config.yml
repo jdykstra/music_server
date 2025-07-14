@@ -1,4 +1,4 @@
-title: "Subwoofer crossover with 10/22 mains and sub filters"
+title: "Default"
 description: >
   Mains:  10/30 minimum Phase FIR, processed using "important note" method and not 
   incorrectly adding in the crossover correction.  Recomputed 12/19/2024 for 176.4 KHz
