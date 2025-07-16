@@ -1,0 +1,119 @@
+title: "Headphones"
+description: >
+  Unmodified stereo channels fed to DAC1;  DAC3 channels are silent.
+
+devices:
+  capture_samplerate: 44100
+  # High sample rate to allow for high quality filtering.
+  # Current value is 4*capture_samplerate.
+  samplerate: 176400
+  enable_rate_adjust: true
+  chunksize: 8192
+  # Increase target level to avoid underruns.  Current value is 
+  # max alllowed;  it probably could be less.
+  target_level: 16383
+  resampler:
+    type: Synchronous
+  capture:
+    # Read from the default subdevice of the ALSA loopback device.
+    type: Alsa
+    channels: 2
+    device: "hw:Loopback,1"
+    format: S16LE
+  playback:
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
+    # The Digiface USB supports different sample rates depending on how many inputs
+    # and outputs are in use.  The current (2024) Linux sound drivers only allow
+    # 44.1 KHz to be selected if all 34 channels are in use.  We output silence to
+    # the unused channels.
+    type: Alsa
+    channels: 10
+    device: "hw:USB24240187,0"
+    format: S32LE
+    
+mixers:
+
+  # Copy input channels 0 and 1 to output channels 2 and 3 (DAC1).
+  # Silence output channels 0 and 1 (DAC3).
+  move_channels:
+    channels:
+      in: 2
+      out: 4
+    mapping:
+      - dest: 0               # Left channel
+        sources:
+          - channel: 0
+            gain: -100
+      - dest: 1               # Right channel
+        sources:
+          - channel: 1
+            gain: -100
+      - dest: 2               # Left channel
+        sources:
+          - channel: 0
+            gain: 0
+      - dest: 3               # Right channel
+        sources:
+          - channel: 1
+            gain: 0        
+  
+#  Output silence to all unused output channels.  See comment in devices specification.
+  fanout:
+    channels:
+      in: 4
+      out: 10
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+      - dest: 2
+        sources:
+          - channel: 2
+            gain: 0
+      - dest: 3
+        sources:
+          - channel: 3
+            gain: 0
+      - dest: 3   
+        sources:
+          - channel: 2 
+            gain: -100
+      - dest: 4  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 5  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 6  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 7  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 8  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+      - dest: 9  # Not used
+        sources:
+          - channel: 2
+            gain: -100
+        
+
+pipeline:
+  - type: Mixer
+    description: "Copy input channels 0 and 1 to channels 2 and 3"
+    name: move_channels
+
+  - type: Mixer
+    description: "Fan out to all channels"
+    name: fanout
