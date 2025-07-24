@@ -144,7 +144,7 @@ processors:
     type: Compressor
     parameters:
       channels: 2
-      attack: 0.040
+      attack: 0.004
       release: 1.0
       threshold: -72
       factor: 1.5
