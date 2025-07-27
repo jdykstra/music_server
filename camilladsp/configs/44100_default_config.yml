@@ -247,23 +247,24 @@ pipeline:
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
     
+  - type: Mixer
+    description: "Reduce levels for ATC SCM 50 sensitivity"
+    name: scm50_sensitivity
+    
   - type: Filter
     channel: 0
     names:
     - l_fir
-    - scm50_sensitivity
 
   - type: Filter
     channel: 1
     names:
     - r_fir
-    - scm50_sensitivity
 
   - type: Filter
     channel: 2
     names:
     - sub_fir
-    - scm50_sensitivity
 
   - type: Mixer
     description: "Fan out to all 34 channels"
