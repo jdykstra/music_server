@@ -194,6 +194,26 @@ mixers:
         sources:
           - channel: 2
             gain: -100
+
+  # Reduce channels 0 and 1  by 20 db to accommodate the SCM 50 ATC's sensitivity.
+  scm50_sensitivity:
+    channels:
+      in: 3
+      out: 3
+    mapping:
+      - dest: 0               # Left channel
+        sources:
+          - channel: 0
+            gain: -20          # Reduce level for ATC SCM 50
+      - dest: 1               # Right channel
+        sources:
+          - channel: 1
+            gain: -20          # Reduce level for ATC SCM 50
+      - dest: 2               # New mono channel for sub
+        sources:
+          - channel: 2
+            gain: 0            # No change for sub
+
           
 filters:
   l_fir:
@@ -231,16 +251,19 @@ pipeline:
     channel: 0
     names:
     - l_fir
+    - scm50_sensitivity
 
   - type: Filter
     channel: 1
     names:
     - r_fir
+    - scm50_sensitivity
 
   - type: Filter
     channel: 2
     names:
     - sub_fir
+    - scm50_sensitivity
 
   - type: Mixer
     description: "Fan out to all 34 channels"
