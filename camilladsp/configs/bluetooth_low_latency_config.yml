@@ -124,11 +124,11 @@ mixers:
       - dest: 0               # Left channel
         sources:
           - channel: 0
-            gain: -20          # Reduce level for ATC SCM 50
+            gain: -15          # Reduce level for ATC SCM 50
       - dest: 1               # Right channel
         sources:
           - channel: 1
-            gain: -20          # Reduce level for ATC SCM 50
+            gain: -15          # Reduce level for ATC SCM 50
       - dest: 2               # New mono channel for sub
         sources:
           - channel: 2
