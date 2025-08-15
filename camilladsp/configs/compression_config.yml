@@ -104,7 +104,7 @@ mixers:
           - channel: 2
             gain: -100
 
-  # Reduce channels 0 and 1  by 20 db to accommodate the SCM 50 ATC's sensitivity.
+  # Reduce channels 0 and 1  by 205 db to accommodate the SCM 50 ATC's sensitivity.
   scm50_sensitivity:
     channels:
       in: 3
@@ -113,11 +113,11 @@ mixers:
       - dest: 0               # Left channel
         sources:
           - channel: 0
-            gain: -15          # Reduce level for ATC SCM 50
+            gain: -5          # Reduce level for ATC SCM 50
       - dest: 1               # Right channel
         sources:
           - channel: 1
-            gain: -15          # Reduce level for ATC SCM 50
+            gain: -5          # Reduce level for ATC SCM 50
       - dest: 2               # New mono channel for sub
         sources:
           - channel: 2
