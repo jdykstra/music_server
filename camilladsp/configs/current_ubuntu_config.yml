@@ -21,23 +21,5 @@ devices:
     device: "hw:I82801AAICH,0"
     format: S16LE
 
-mixers:
-  # Reduce channels 0 and 1 by 20 db to accommodate the SCM 50 ATC's sensitivity.
-  scm50_sensitivity:
-    channels:
-      in: 2
-      out: 2
-    mapping:
-      - dest: 0               # Left channel
-        sources:
-          - channel: 0
-            gain: -20          # Reduce level for ATC SCM 50
-      - dest: 1               # Right channel
-        sources:
-          - channel: 1
-            gain: -20          # Reduce level for ATC SCM 50
-
 pipeline:
-  - type: Mixer
-    name: scm50_sensitivity
  
