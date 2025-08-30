@@ -106,13 +106,19 @@ mixers:
 
         
 filters:
+  sub_fir_compensation:
+    type: Delay
+    parameters:
+      delay: 372
+      unit: ms
+      subsample: false
   sub_fir:
     type: Conv
     parameters:
       type: Wav
       filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
 
-  sub_delay_compensation:
+  sub_dsp_compensation:
     type: Delay
     parameters:
       delay: 27
@@ -151,13 +157,15 @@ pipeline:
   - type: Filter
     channel: 0
     names:
-    - sub_delay_compensation 
+    - sub_dsp_compensation 
+    - sub_fir_compensation
     - FS_limiter
 
   - type: Filter
     channel: 1
     names:
-    - sub_delay_compensation
+    - sub_dsp_compensation
+    - sub_fir_compensation
     - FS_limiter
 
   - type: Filter
