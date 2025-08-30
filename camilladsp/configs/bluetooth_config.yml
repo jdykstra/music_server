@@ -120,9 +120,10 @@ filters:
   sub_fir_compensation:
     type: Delay
     parameters:
-      delay: 372
+      delay: 92.925
       unit: ms
       subsample: false
+
   sub_fir:
     type: Conv
     parameters:
