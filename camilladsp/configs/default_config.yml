@@ -88,6 +88,7 @@ mixers:
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 6  # Not used
         mute: true
         sources:
@@ -102,6 +103,7 @@ mixers:
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 9  # Not used
         mute: true
         sources:
@@ -144,7 +146,7 @@ pipeline:
     channel: 0
     names:
     - sub_dsp_compensation 
-  - sub_fir_compensation
+    - sub_fir_compensation
     - FS_limiter
 
   - type: Filter
