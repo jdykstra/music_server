@@ -86,34 +86,45 @@ mixers:
         sources:
           - channel: 2
             gain: 0
-      - dest: 3   
+      - dest: 3   # Not used
         mute: true
         sources:
-          - channel: 2 
+          - channel: 2
+            gain: 0
       - dest: 4  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 5  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
+        mute: true
+        sources:
+          - channel: 2
+            gain: 0
       - dest: 6  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 7  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 8  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 9  # Not used
         mute: true
         sources:
           - channel: 2
+            gain: 0
 
         
 filters:
