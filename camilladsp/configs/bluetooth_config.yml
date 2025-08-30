@@ -114,6 +114,7 @@ mixers:
         mute: true
         sources:
           - channel: 2
+            gain: 0
       - dest: 9  # Not used
         mute: true
         sources:
