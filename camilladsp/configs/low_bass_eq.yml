@@ -1,6 +1,7 @@
-title: "Compression (WIP)"
+title: "Low Bass EQ"
 description: >
-  Currently just using the L filter.
+  Mains:  L and R amplitude filters with no phase correction, mainly to address
+  low bass bump in right speaker.
   Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
   Recomputed 12/19/2024 for 176.4 KHz sample rate.
 
@@ -75,7 +76,7 @@ mixers:
         sources:
           - channel: 2
             gain: 0
-      - dest: 3   # Not used
+      - dest: 3    # Not used
         mute: true
         sources:
           - channel: 2 
@@ -111,7 +112,6 @@ mixers:
           - channel: 2
             gain: 0
 
-        
 filters:
   sub_fir_compensation:
     type: Delay
@@ -119,6 +119,18 @@ filters:
       delay: 92.925
       unit: ms
       subsample: false
+      
+  l_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_L_amplitude_impulse.wav
+
+  r_fir:
+    type: Conv
+    parameters:
+      type: Wav
+      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_R_amplitude_impulse.wav
 
   sub_fir:
     type: Conv
@@ -139,25 +151,7 @@ filters:
       soft_clip: false
       clip_limit: -1.0
 
-processors:
-  range_compressor:
-    type: Compressor
-    parameters:
-      channels: 2
-      attack: 0.004
-      release: 1.0
-      threshold: -72
-      factor: 1.5
-      makeup_gain: 12.0
-      clip_limit: 0.0
-      soft_clip: true
-      monitor_channels: [0, 1]
-      process_channels: [0, 1]
-
 pipeline:
-  - type: Processor
-    name: range_compressor
-
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
@@ -166,14 +160,14 @@ pipeline:
     channel: 0
     names:
     - sub_dsp_compensation 
-    - sub_fir_compensation
+    - l_fir
     - FS_limiter
 
   - type: Filter
     channel: 1
     names:
     - sub_dsp_compensation
-    - sub_fir_compensation
+    - r_fir
     - FS_limiter
 
   - type: Filter
