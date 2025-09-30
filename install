@@ -8,7 +8,7 @@ set -x
 # appearing in the system's GNOME session rather than in the VNC session.
 
 # Versions to be downloaded and installed.
-QUODLIBET_BRANCH=jwd-customizations
+QUODLIBET_BRANCH=music-server-main
 CAMILLADSP_RELEASE=v2.0.3
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 
