@@ -4,4 +4,4 @@ set -x
 source env.sh
 source "$PYTHON_ENVIRONMENT/bin/activate"
 
-python3 $QUOD_LIBET_DIR/quodlibet.py &> $LOGS/quodlibet.log
+python3 $QUOD_LIBET_DIR/quodlibet.py "$@" &> $LOGS/quodlibet.log
