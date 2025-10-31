@@ -7,6 +7,5 @@
 tigervncserver -kill :2 2>/dev/null || true
 
 # Start VNC server on display :1 (port 590)
-tigervncserver :2 -localhost no -geometry 887x637 -depth 16 -xstartup /home/jwd/music_server/start_vnc_session_simple
+tigervncserver :2 -localhost no -geometry 887x637 -depth 16 -xstartup /home/jwd/music_server/start_vnc_session
 
-#   vncserver :1 -localhost no -geometry 1024x900 
