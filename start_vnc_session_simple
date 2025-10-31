@@ -2,8 +2,6 @@
 # Simplified VNC startup script to avoid GNOME session worker crashes
 set -x
 
-DIGIFACE_USB_NAME="USB24240187"
-
 # Set up proper X11 display environment for VNC session
 export DISPLAY=:2
 export WAYLAND_DISPLAY=""
@@ -54,10 +52,8 @@ source env.sh
 
 # At kernel boot time, Linux puts all four of the Digiface USB outputs into ADAT mode 
 # (snd_usb_rme_digiface_boot_quirk()).  Set the two outputs that we use back into S/PDIF mode.
-if amixer -c "$DIGIFACE_USB_NAME" info >/dev/null 2>&1; then
-    amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF' || true
-    amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF' || true
-fi
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
+amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
 
 # Additional environment variables for GTK applications in VNC
 export GDK_BACKEND=x11
@@ -94,9 +90,9 @@ sleep 10
 ./start_camilladsp_backend &
 
 # Start Firefox, showing the camilladsp GUI.
-# The snap version of Firefox does not work well without a real session,
+# The snap version of Firefox does not work well without a real GNOME session,
 # so use the conventional install directly from Mozilla.  See the install script.
 firefox  http://localhost:5005/gui/index.html &
 
-xterm -geometry 80x6+0+0 &
+xterm -geometry 80x6+0+0
 

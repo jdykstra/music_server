@@ -15,3 +15,7 @@ CAMILLADSP_DIR="$MUSIC_ROOT"/camilladsp
 # Log directory.
 LOGS=$MUSIC_ROOT/logs
 
+# Name of the Digiface USB sound card as shown by `aplay -l`.
+DIGIFACE_USB_NAME="USB24240187"
+
+
