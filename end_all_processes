@@ -1,0 +1,19 @@
+#!/bin/bash
+# Script to end all relevant processes for music server
+
+# Kill any TigerVNC server running at :2
+echo "Killing TigerVNC server at :2 (if running)..."
+vncserver -kill :2 2>/dev/null
+
+# Find and kill processes related to quodlibet, camilladsp, or camilladsp_backend
+for PROC in quodlibet camilladsp camilladsp_backend; do
+    echo "Killing processes matching: $PROC"
+    # List all matching processes, skip the grep itself, and kill them
+    pids=$(ps -aux | grep "$PROC" | grep -v grep | awk '{print $2}')
+    if [ -n "$pids" ]; then
+        echo "Killing PID: $pids"
+        echo "$pids" | xargs kill -9
+    fi
+done
+
+echo "All relevant processes have been killed."

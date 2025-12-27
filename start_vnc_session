@@ -1,30 +1,38 @@
-#! /bin/bash
-#####  set -e
+#!/bin/bash
 set -x
-
-DIGIFACE_USB_NAME="USB24240187"
 
 # This script is executed by the VNC server when it creates a new session.
 # The script starts the processes that constitute the music server.
 # First set up the display environment, as usually done by an xstartup script.
-[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 xsetroot -solid grey
 vncconfig -iconic &
 
-# Start DBUS, which is needed (at least) by gnome-terminal.
-eval $(dbus-launch --sh-syntax)
-export DBUS_SESSION_BUS_ADDRESS
+# Additional environment variables for GTK applications in VNC
+export GDK_BACKEND=x11
+export GTK_THEME=Adwaita:dark
 
-x-window-manager &
+# Start DBUS for applications that need it
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval $(dbus-launch --sh-syntax)
+    export DBUS_SESSION_BUS_ADDRESS
+fi
 
-# Switch to a non-compositing window manager for faster opacity transitions.
-metacity --replace &
+# Use a lightweight window manager instead of GNOME components
+# Try metacity first, fall back to alternatives
+if command -v metacity >/dev/null 2>&1; then
+    metacity &
+elif command -v openbox >/dev/null 2>&1; then
+    openbox &
+elif command -v xfwm4 >/dev/null 2>&1; then
+    xfwm4 &
+else
+    # Fallback to basic window manager
+    x-window-manager &
+fi
 
-# We need to move into the music_server directory (i.e. where this
-# script is located).
+# Move to music server directory
 cd "$( dirname "$0" )"
-
 source env.sh
 
 # At kernel boot time, Linux puts all four of the Digiface USB outputs into ADAT mode 
@@ -32,7 +40,8 @@ source env.sh
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
 
-# Start Quod Libet music player.
+# Start Quod Libet music player with enhanced logging
+echo "Starting QuodLibet at $(date)" >> /tmp/vnc_startup.log
 ./start_quodlibet &
 
 # Start camilladsp.  It will error out if there is nothing connected to the input side
@@ -45,10 +54,11 @@ sleep 10
 ./start_camilladsp_backend &
 
 # Start Firefox, showing the camilladsp GUI.
-# The snap version of Firefox does not work well without a real session,
+# The snap version of Firefox does not work well without a real GNOME session,
 # so use the conventional install directly from Mozilla.  See the install script.
-firefox http://localhost:5005/gui/index.html &
+firefox  http://localhost:5005/gui/index.html &
 
 # Start a terminal window.  The VNC server will exit when this process does.
-gnome-terminal --wait --geometry=80x6+0+0
+# Unfortunately, gnome-terminal cannot be used without a full GNOME session.
+xterm -geometry 80x6+0+0
 
