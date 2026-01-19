@@ -16,19 +16,10 @@ devices:
   resampler:
     type: Synchronous
   capture:
-    # This way of connecting to Bluetooth is, at the least, suboptimal.
-    # We're reading the audio routed to (I think) the default audio
-    # output device by BlueZ or PipeWire.  That means we also read
-    # anything else routed to that device, which might be very loud.
-    # The method described in the CammilaDSP README
-    # uses Bluezalsa directly, but that software is still unstable.
-    # Also, I don't think PulseAudio is actually running on the 
-    # music server.  PipeWire is definitely there, and I think we're
-    # actually using its PulseAudio compatibility features.
     type: pulse
+    device: "bluetooth_capture_sink.monitor"
     channels: 2
-    device: "alsa_output.pci-0000_00_1b.0.analog-stereo.monitor"
-    format: S16LE
+    format: FLOAT32LE
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
     # The Digiface USB supports different sample rates depending on how many inputs
