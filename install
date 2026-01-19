@@ -61,6 +61,10 @@ mkdir -p "$CAMILLADSP_DIR"/camillagui-backend
 wget -O /tmp/tarball.zip https://github.com/HEnquist/camillagui-backend/releases/download/"$CAMILLAGUI_BACKEND_RELEASE"/camillagui.zip
 unzip /tmp/tarball.zip -d "$CAMILLADSP_DIR"/camillagui-backend/
 
+# Copy pipewire configuration info needed for playing from bluetooth.
+mkdir -p ~/.config/wireplumber/wireplumber.conf.d/
+cp files_to_be_copied/51-bluetooth-custom.conf ~/.config/wireplumber/wireplumber.conf.d/
+
 # Copy our custom config file for Camilladsp's GUI into its final directory.
 # We do this because the config file contained in the GUI release 
 # tarball uses relative pathnames.  Leave the original file in  place so 
