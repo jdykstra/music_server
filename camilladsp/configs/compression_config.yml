@@ -17,10 +17,11 @@ devices:
   resampler:
     type: Synchronous
   capture:
-    # Read from the default subdevice of the ALSA loopback device.
+    # Read from the default subdevice of the ALSA loopback device 
+    # fed by Quod Libet.
     type: Alsa
     channels: 2
-    device: "hw:Loopback,1"
+    device: "hw:qlloop,1,0"
     format: S16LE
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  

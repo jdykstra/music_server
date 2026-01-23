@@ -77,6 +77,23 @@ python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
 # We need serial access to the power controller.
 sudo usermod -aG dialout "$USER"
 
+# Install and configure bluealsa to support playing from bluetooth devices.
+# Disable bluealsa-aplay.service so that it doesn't grab an incoming
+# bluetooth stream.
+sudo apt install -y bluez-alsa-utils libasound2-plugin-bluez
+sudo systemctl disable bluealsa-aplay.service
+sudo systemctl mask bluealsa-aplay.service
+sudo systemctl stop bluealsa-aplay.service
+cp files_to_be_copied/10-disable-bluetooth.conf "~/.config/wireplumber/wireplumber.conf.d/"
+
+# Quod Libet uses the integrated sound device to play sound effects.
+# Make sure its volume is set to max.
+# Set Master and PCM to 100% (unmuted)
+amixer -c PCH sset 'Master' 100% unmute
+amixer -c PCH sset 'Speaker' 100% unmute
+amixer -c PCH sset 'PCM' 100% unmute
+sudo alsactl store PCH
+
 # The snap version of Firefox does not work well without a real session,
 # so use the conventional install directly from Mozilla.
 # We need to specify a version because Ubuntu prioritizes the snap alternative.

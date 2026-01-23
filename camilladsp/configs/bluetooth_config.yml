@@ -10,16 +10,19 @@ devices:
   samplerate: 176400
   enable_rate_adjust: true
   chunksize: 8192
+  silence_threshold: -100
+  silence_timeout: 5.0
   # Increase target level to avoid underruns.  Current value is 
   # max alllowed;  it probably could be less.
   target_level: 16383
   resampler:
     type: Synchronous
   capture:
-    type: pulse
-    device: "bluetooth_capture_sink.monitor"
+    type: Alsa
     channels: 2
-    format: FLOAT32LE
+    # This 'device' string tells ALSA to use the bluealsa plugin for 'oak'
+    device: "bluealsa:DEV=88:66:5A:45:4E:9C,PROFILE=a2dp"
+    format: S16LE
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
     # The Digiface USB supports different sample rates depending on how many inputs
