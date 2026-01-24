@@ -9,7 +9,8 @@ set -x
 
 # Versions to be downloaded and installed.
 QUODLIBET_BRANCH=music-server-main
-CAMILLADSP_RELEASE=v2.0.3
+CAMILLADSP_REPO=jdykstra
+CAMILLADSP_RELEASE=v2.0.3_bluealsa
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 
 # Some Ubuntu packages needed.
@@ -53,7 +54,7 @@ popd
 
 # Install the Camilladsp app from the official release.
 mkdir -p "$CAMILLADSP_DIR"/bin 
-wget -O /tmp/tarball.tgz https://github.com/HEnquist/camilladsp/releases/download/"$CAMILLADSP_RELEASE"/camilladsp-linux-amd64.tar.gz
+wget -O /tmp/tarball.tgz https://github.com/"$CAMILLADSP_REPO"/camilladsp/releases/download/"$CAMILLADSP_RELEASE"/camilladsp-linux-amd64.tar.gz
 tar -xzf /tmp/tarball.tgz -C "$CAMILLADSP_DIR/bin/"
 
 # Install Camilladsp's GUI backend from the official release.
