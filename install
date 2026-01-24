@@ -85,7 +85,8 @@ sudo apt install -y bluez-alsa-utils libasound2-plugin-bluez
 sudo systemctl disable bluealsa-aplay.service
 sudo systemctl mask bluealsa-aplay.service
 sudo systemctl stop bluealsa-aplay.service
-cp files_to_be_copied/10-disable-bluetooth.conf "~/.config/wireplumber/wireplumber.conf.d/"
+mkdir -p $HOME/.config/wireplumber/wireplumber.conf.d/
+cp files_to_be_copied/10-disable-bluetooth.conf $HOME/.config/wireplumber/wireplumber.conf.d/
 
 # Quod Libet uses the integrated sound device to play sound effects.
 # Make sure its volume is set to max.
