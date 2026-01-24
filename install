@@ -107,3 +107,6 @@ sudo snap remove firefox
 sudo apt-mark hold firefox
 
 echo "**********  Install Completed Successfully  **********"
+echo " Now reboot (to load the loopback module) and then configure"
+echo " Quod Libet to output to "alsasink device=hw:qlloop,0,0".  "
+
