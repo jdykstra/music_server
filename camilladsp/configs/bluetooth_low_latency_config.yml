@@ -18,8 +18,8 @@ devices:
   capture:
     type: Alsa
     channels: 2
-    # This 'device' string tells ALSA to use the bluealsa plugin for 'oak'
-    device: "bluealsa:DEV=88:66:5A:45:4E:9C,PROFILE=a2dp"
+    # Using the 00:00... wildcard targets any connected device
+    device: "bluealsa:DEV=00:00:00:00:00:00,PROFILE=a2dp"
     format: S16LE
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
