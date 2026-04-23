@@ -142,6 +142,20 @@ pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
+    
+  - type: Filter
+    channel: 0
+    names:
+    - sub_dsp_compensation 
+    - sub_fir_compensation
+    - FS_limiter
+
+  - type: Filter
+    channel: 1
+    names:
+    - sub_dsp_compensation
+    - sub_fir_compensation
+    - FS_limiter
 
   - type: Filter
     channel: 2
