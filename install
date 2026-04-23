@@ -9,7 +9,8 @@ set -x
 
 # Versions to be downloaded and installed.
 QUODLIBET_BRANCH=music-server-main
-CAMILLADSP_RELEASE=v2.0.3
+CAMILLADSP_REPO=jdykstra
+CAMILLADSP_RELEASE=v2.0.3_bluealsa
 CAMILLAGUI_BACKEND_RELEASE=v2.1.1
 
 # Some Ubuntu packages needed.
@@ -53,7 +54,7 @@ popd
 
 # Install the Camilladsp app from the official release.
 mkdir -p "$CAMILLADSP_DIR"/bin 
-wget -O /tmp/tarball.tgz https://github.com/HEnquist/camilladsp/releases/download/"$CAMILLADSP_RELEASE"/camilladsp-linux-amd64.tar.gz
+wget -O /tmp/tarball.tgz https://github.com/"$CAMILLADSP_REPO"/camilladsp/releases/download/"$CAMILLADSP_RELEASE"/camilladsp-linux-amd64.tar.gz
 tar -xzf /tmp/tarball.tgz -C "$CAMILLADSP_DIR/bin/"
 
 # Install Camilladsp's GUI backend from the official release.
@@ -73,6 +74,28 @@ python3 -m pip install -r "$CAMILLADSP_DIR"/camillagui-backend/requirements.txt
 # We need serial access to the power controller.
 sudo usermod -aG dialout "$USER"
 
+# Define the ALSA loopback device that routes audio from Quod Libet to CamillaDSP.
+sudo cp files_to_be_copied/50-alsa-loopback.conf /etc/modules-load.d/
+sudo cp files_to_be_copied/50-alsa-loopback-options.conf /etc/modprobe.d/
+
+# Install and configure bluealsa to support playing from bluetooth devices.
+# Disable bluealsa-aplay.service so that it doesn't grab an incoming
+# bluetooth stream.
+sudo apt install -y bluez-alsa-utils libasound2-plugin-bluez
+sudo systemctl disable bluealsa-aplay.service
+sudo systemctl mask bluealsa-aplay.service
+sudo systemctl stop bluealsa-aplay.service
+mkdir -p $HOME/.config/wireplumber/wireplumber.conf.d/
+cp files_to_be_copied/10-disable-bluetooth.conf $HOME/.config/wireplumber/wireplumber.conf.d/
+
+# Quod Libet uses the integrated sound device to play sound effects.
+# Make sure its volume is set to max.
+# Set Master and PCM to 100% (unmuted)
+amixer -c PCH sset 'Master' 100% unmute
+amixer -c PCH sset 'Speaker' 100% unmute
+amixer -c PCH sset 'PCM' 100% unmute
+sudo alsactl store PCH
+
 # The snap version of Firefox does not work well without a real session,
 # so use the conventional install directly from Mozilla.
 # We need to specify a version because Ubuntu prioritizes the snap alternative.
@@ -85,3 +108,6 @@ sudo snap remove firefox
 sudo apt-mark hold firefox
 
 echo "**********  Install Completed Successfully  **********"
+echo " Now reboot (to load the loopback module) and then configure"
+echo " Quod Libet to output to "alsasink device=hw:qlloop,0,0".  "
+
