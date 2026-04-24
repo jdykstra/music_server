@@ -25,11 +25,11 @@ devices:
     device: "hw:qlloop,1,0"
     format: S16LE
   playback:
-    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 is sub.  
     # The Digiface USB supports different sample rates depending on how many inputs
     # and outputs are in use.  The current (2024) Linux sound drivers only allow
-    # 44.1 KHz to be selected if all 34 channels are in use.  We output silence to
-    # the unused channels.
+    # 44.1 KHz to be selected if all 34 channels are in use, and 176.4KHz requires
+    # 10 channels.  We output silence to the unused channels.
     type: Alsa
     channels: 10
     device: "hw:USB24240187,0"
