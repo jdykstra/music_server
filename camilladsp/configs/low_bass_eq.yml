@@ -114,14 +114,13 @@ mixers:
             gain: 0
 
 filters:
-  sub_fir_compensation:
+  # Delay mains to compensate for the CamillaDSP filters on the sub.
+  sub_biquad_compensation:
     type: Delay
     parameters:
-      delay: 92.925
-      unit: ms
-      subsample: false
-      
-filters:
+      delay: 14.2
+      unit: ms      
+
   # Subsonic Protection: 20Hz Butterworth 2nd Order
   subsonic_hp:
     type: Biquad
@@ -155,6 +154,7 @@ filters:
       gain: 2.0
       q: 0.7  
   
+  # Delay mains to compensate for DSP delay within the sub.
   sub_dsp_compensation:
     type: Delay
     parameters:
@@ -162,11 +162,15 @@ filters:
       unit: ms
       subsample: false
 
-  FS_limiter:
-    type: Limiter
+  # Delay mains to compensate for distance between sub & plane of mains
+  # (32 inches).
+  sub_distance_compensation:
+    type: Delay
     parameters:
-      soft_clip: false
-      clip_limit: -1.0
+      delay: 2.35
+      unit: ms
+      subsample: false
+
 
 pipeline:
   - type: Mixer
@@ -176,12 +180,16 @@ pipeline:
   - type: Filter
     channel: 0
     names:
+    - sub_biquad_compensation
     - sub_dsp_compensation 
+    - sub_distance_compensation
 
   - type: Filter
     channel: 1
     names:
+    - sub_biquad_compensation
     - sub_dsp_compensation
+    - sub_distance_compensation
 
   - type: Filter
     channel: 2
