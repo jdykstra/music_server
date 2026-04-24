@@ -1,9 +1,9 @@
 title: "Low Bass EQ"
 description: >
-  Mains:  L and R amplitude filters with no phase correction, mainly to address
-  low bass bump in right speaker.
-  Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
-  Recomputed 12/19/2024 for 176.4 KHz sample rate.
+
+description: >
+  Sub:  Filter parameters from Google Gemini to match SCMs. 
+  Mains:  No processing, but add delay to align with sub.
 
 devices:
   capture_samplerate: 44100
@@ -121,24 +121,40 @@ filters:
       unit: ms
       subsample: false
       
-  l_fir:
-    type: Conv
+filters:
+  # Subsonic Protection: 20Hz Butterworth 2nd Order
+  subsonic_hp:
+    type: Biquad
     parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_L_amplitude_impulse.wav
+      type: Highpass
+      freq: 20
+      q: 0.7071  # Standard Butterworth Q
 
-  r_fir:
-    type: Conv
+  # 50Hz Linkwitz-Riley 4th Order Crossover (Part 1)
+  sub_lp_1:
+    type: Biquad
     parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_R_amplitude_impulse.wav
+      type: Lowpass
+      freq: 50
+      q: 0.7071
 
-  sub_fir:
-    type: Conv
+  # 50Hz Linkwitz-Riley 4th Order Crossover (Part 2)
+  sub_lp_2:
+    type: Biquad
     parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
+      type: Lowpass
+      freq: 50
+      q: 0.7071
 
+  # Low-end Fill
+  sub_shelf:
+    type: Biquad
+    parameters:
+      type: Lowshelf
+      freq: 35
+      gain: 2.0
+      q: 0.7  
+  
   sub_dsp_compensation:
     type: Delay
     parameters:
@@ -156,26 +172,24 @@ pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
-    
+
   - type: Filter
     channel: 0
     names:
     - sub_dsp_compensation 
-    - l_fir
-    - FS_limiter
 
   - type: Filter
     channel: 1
     names:
     - sub_dsp_compensation
-    - r_fir
-    - FS_limiter
 
   - type: Filter
     channel: 2
     names:
-    - sub_fir
-    - FS_limiter
+      - subsonic_hp
+      - sub_lp_1
+      - sub_lp_2
+      - sub_shelf
 
   - type: Mixer
     description: "Fan out to all channels"
