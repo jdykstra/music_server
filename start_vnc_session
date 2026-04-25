@@ -64,5 +64,3 @@ firefox  http://localhost:5005/gui/index.html &
 # Start a terminal window.  The VNC server will exit when this process does.
 # Unfortunately, gnome-terminal cannot be used without a full GNOME session.
 xterm -geometry 80x6+0+0
-
-x
