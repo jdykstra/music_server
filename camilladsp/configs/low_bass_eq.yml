@@ -1,7 +1,5 @@
 title: "Low Bass EQ"
 description: >
-
-description: >
   Sub:  Filter parameters from Google Gemini to match SCMs. 
   Mains:  No processing, but add delay to align with sub.
 
