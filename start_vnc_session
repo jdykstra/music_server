@@ -40,6 +40,9 @@ source env.sh
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 1 Format' 'S/PDIF'
 amixer -c "$DIGIFACE_USB_NAME" cset name='Output 2 Format' 'S/PDIF'
 
+# Set the system volume so that sound effects from Quod Libet are audible.  
+wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.75
+
 # Start Quod Libet music player with enhanced logging
 echo "Starting QuodLibet at $(date)" >> /tmp/vnc_startup.log
 ./start_quodlibet &
@@ -61,4 +64,3 @@ firefox  http://localhost:5005/gui/index.html &
 # Start a terminal window.  The VNC server will exit when this process does.
 # Unfortunately, gnome-terminal cannot be used without a full GNOME session.
 xterm -geometry 80x6+0+0
-

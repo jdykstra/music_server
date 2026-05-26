@@ -1,7 +1,6 @@
-title: "Low Bass EQ"
+title: "limiter"
 description: >
-  Mains:  L and R amplitude filters with no phase correction, mainly to address
-  low bass bump in right speaker.
+  mains:  Delay and limiter.
   Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
   Recomputed 12/19/2024 for 176.4 KHz sample rate.
 
@@ -18,10 +17,11 @@ devices:
   resampler:
     type: Synchronous
   capture:
-    # Read from the default subdevice of the ALSA loopback device.
+    # Read from the default subdevice of the ALSA loopback device 
+    # fed by Quod Libet.
     type: Alsa
     channels: 2
-    device: "hw:Loopback,1"
+    device: "hw:qlloop,1,0"
     format: S16LE
   playback:
     # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
@@ -120,18 +120,6 @@ filters:
       unit: ms
       subsample: false
       
-  l_fir:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_L_amplitude_impulse.wav
-
-  r_fir:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/8_31_25_R_amplitude_impulse.wav
-
   sub_fir:
     type: Conv
     parameters:
@@ -160,14 +148,14 @@ pipeline:
     channel: 0
     names:
     - sub_dsp_compensation 
-    - l_fir
+    - sub_fir_compensation
     - FS_limiter
 
   - type: Filter
     channel: 1
     names:
     - sub_dsp_compensation
-    - r_fir
+    - sub_fir_compensation
     - FS_limiter
 
   - type: Filter

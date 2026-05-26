@@ -1,7 +1,7 @@
 title: "Default"
 description: >
-  Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
-  Recomputed 12/19/2024 for 176.4 KHz sample rate.
+  Sub:  Filter parameters from Google Gemini to match SCMs. 
+  Mains:  No processing, but add delay to align with sub.
 
 devices:
   capture_samplerate: 44100
@@ -16,17 +16,18 @@ devices:
   resampler:
     type: Synchronous
   capture:
-    # Read from the default subdevice of the ALSA loopback device.
+    # Read from the default subdevice of the ALSA loopback device 
+    # fed by Quod Libet.
     type: Alsa
     channels: 2
-    device: "hw:Loopback,1"
+    device: "hw:qlloop,1,0"
     format: S16LE
   playback:
-    # RME Digiface USB.  Channels 0 and 1 are mains, 2 and 3 are sub.  
+    # RME Digiface USB.  Channels 0 and 1 are mains, 2 is sub.  
     # The Digiface USB supports different sample rates depending on how many inputs
     # and outputs are in use.  The current (2024) Linux sound drivers only allow
-    # 44.1 KHz to be selected if all 34 channels are in use.  We output silence to
-    # the unused channels.
+    # 44.1 KHz to be selected if all 34 channels are in use, and 176.4KHz requires
+    # 10 channels.  We output silence to the unused channels.
     type: Alsa
     channels: 10
     device: "hw:USB24240187,0"
@@ -111,19 +112,47 @@ mixers:
             gain: 0
 
 filters:
-  sub_fir_compensation:
+  # Delay mains to compensate for the CamillaDSP filters on the sub.
+  sub_biquad_compensation:
     type: Delay
     parameters:
-      delay: 92.925
-      unit: ms
-      subsample: false
-      
-  sub_fir:
-    type: Conv
-    parameters:
-      type: Wav
-      filename: /home/jwd/music_server/camilladsp/coeffs/12-19-sub_amplitude_impulse.wav
+      delay: 14.2
+      unit: ms      
 
+  # Subsonic Protection: 20Hz Butterworth 2nd Order
+  subsonic_hp:
+    type: Biquad
+    parameters:
+      type: Highpass
+      freq: 20
+      q: 0.7071  # Standard Butterworth Q
+
+  # 50Hz Linkwitz-Riley 4th Order Crossover (Part 1)
+  sub_lp_1:
+    type: Biquad
+    parameters:
+      type: Lowpass
+      freq: 50
+      q: 0.7071
+
+  # 50Hz Linkwitz-Riley 4th Order Crossover (Part 2)
+  sub_lp_2:
+    type: Biquad
+    parameters:
+      type: Lowpass
+      freq: 50
+      q: 0.7071
+
+  # Low-end Fill
+  sub_shelf:
+    type: Biquad
+    parameters:
+      type: Lowshelf
+      freq: 35
+      gain: 2.0
+      q: 0.7  
+  
+  # Delay mains to compensate for DSP delay within the sub.
   sub_dsp_compensation:
     type: Delay
     parameters:
@@ -131,36 +160,42 @@ filters:
       unit: ms
       subsample: false
 
-  FS_limiter:
-    type: Limiter
+  # Delay mains to compensate for distance between sub & plane of mains
+  # (32 inches).
+  sub_distance_compensation:
+    type: Delay
     parameters:
-      soft_clip: false
-      clip_limit: -1.0
+      delay: 2.35
+      unit: ms
+      subsample: false
+
 
 pipeline:
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
-    
+
   - type: Filter
     channel: 0
     names:
+    - sub_biquad_compensation
     - sub_dsp_compensation 
-    - sub_fir_compensation
-    - FS_limiter
+    - sub_distance_compensation
 
   - type: Filter
     channel: 1
     names:
+    - sub_biquad_compensation
     - sub_dsp_compensation
-    - sub_fir_compensation
-    - FS_limiter
+    - sub_distance_compensation
 
   - type: Filter
     channel: 2
     names:
-    - sub_fir
-    - FS_limiter
+      - subsonic_hp
+      - sub_lp_1
+      - sub_lp_2
+      - sub_shelf
 
   - type: Mixer
     description: "Fan out to all channels"

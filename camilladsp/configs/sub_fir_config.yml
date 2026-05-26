@@ -1,9 +1,8 @@
-title: "Compression (WIP)"
+title: "Sub FIR"
 description: >
-  Currently just using the L filter.
+  Mains:  Delay only.
   Sub:  Impulse response from 10/8 speaker measurements and 10/22 filter creation.
-  Recomputed 12/19/2024 for 176.4 KHz sample rate.
-
+  
 devices:
   capture_samplerate: 44100
   # High sample rate to allow for high quality filtering.
@@ -76,7 +75,7 @@ mixers:
         sources:
           - channel: 2
             gain: 0
-      - dest: 3   # Not used
+      - dest: 3    # Not used
         mute: true
         sources:
           - channel: 2 
@@ -112,7 +111,6 @@ mixers:
           - channel: 2
             gain: 0
 
-        
 filters:
   sub_fir_compensation:
     type: Delay
@@ -120,7 +118,7 @@ filters:
       delay: 92.925
       unit: ms
       subsample: false
-
+      
   sub_fir:
     type: Conv
     parameters:
@@ -140,42 +138,10 @@ filters:
       soft_clip: false
       clip_limit: -1.0
 
-processors:
-  range_compressor:
-    type: Compressor
-    parameters:
-      channels: 2
-      attack: 0.004
-      release: 1.0
-      threshold: -72
-      factor: 1.5
-      makeup_gain: 12.0
-      clip_limit: 0.0
-      soft_clip: true
-      monitor_channels: [0, 1]
-      process_channels: [0, 1]
-
 pipeline:
-  - type: Processor
-    name: range_compressor
-
   - type: Mixer
     description: "Mix input channels 0 and 1 to new mono channel 2"
     name: mono
-    
-  - type: Filter
-    channel: 0
-    names:
-    - sub_dsp_compensation 
-    - sub_fir_compensation
-    - FS_limiter
-
-  - type: Filter
-    channel: 1
-    names:
-    - sub_dsp_compensation
-    - sub_fir_compensation
-    - FS_limiter
 
   - type: Filter
     channel: 2
